@@ -20,12 +20,10 @@ public class GenericEntity {
     }
 
     public Long getId() {
-
         return id;
     }
 
     public GenericEntity(String value) {
-
         this.value = value;
     }
 }
