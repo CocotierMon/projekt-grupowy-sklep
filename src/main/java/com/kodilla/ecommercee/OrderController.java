@@ -22,7 +22,7 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createOrder")
-    public void OrderDto createOrder(OrderDto orderDto) {
+    public void createOrder(OrderDto orderDto) {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateOrder")
