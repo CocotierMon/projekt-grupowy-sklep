@@ -21,7 +21,7 @@ public class ProductController {
         return "Some product";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createProducts")
+    @RequestMapping(method = RequestMethod.POST, value = "createProduct")
     public void createProduct(String newProduct) {
 
     }
