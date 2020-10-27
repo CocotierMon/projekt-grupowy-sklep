@@ -22,7 +22,7 @@ public class GroupController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroupByID")
-    public String getGroupByID(){
+    public String getGroupByID(Long groupId){
         return "Got group by ID";
     }
 
@@ -33,6 +33,5 @@ public class GroupController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteGroup")
     public void deleteGroup(Long groupId){
-
     }
 }
