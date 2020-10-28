@@ -39,7 +39,7 @@ public class CartController {
         return Long.valueOf(900);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "addProduct")
+    @RequestMapping(method = RequestMethod.POST, value = "addProduct")
     public void addProduct(){
     }
 
@@ -48,11 +48,11 @@ public class CartController {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "deleteProduct")
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
     public void deleteProduct(){
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "addOrder")
+    @RequestMapping(method = RequestMethod.POST, value = "addOrder")
     public void addOrder(){
     }
 
@@ -61,7 +61,7 @@ public class CartController {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "deleteOrder")
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")
     public void deleteOrder(){
     }
 }
