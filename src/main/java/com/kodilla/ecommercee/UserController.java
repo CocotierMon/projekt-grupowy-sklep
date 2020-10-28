@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/ecommercee/users")
+@RequestMapping("/v1/user")
 public class UserController {
 
     @GetMapping(value = "getUsers")
