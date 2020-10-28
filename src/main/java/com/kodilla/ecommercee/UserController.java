@@ -34,5 +34,13 @@ public class UserController {
     public void deleteUser(@RequestParam Long userId){
         System.out.println("Delete user: " + userId);
     }
+    @PutMapping(value = "blockUser")
+    public void blockUser(@RequestParam Long userId){
+       System.out.println("Block user: " + userId);
+   }
+   @GetMapping(value="generateUserKey")
+    public BigInteger generateUserKey(@RequestParam Long userId){
+       return new BigInteger("1354");
+   }
 }
 
