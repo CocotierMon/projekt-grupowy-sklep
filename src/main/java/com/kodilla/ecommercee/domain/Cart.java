@@ -18,7 +18,6 @@ public class Cart {
     private List<Order> orders = new ArrayList<>();
     private User user;
 
-
     @Id
     @GeneratedValue
     @NotNull
