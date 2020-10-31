@@ -12,6 +12,11 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users")
 public class User {
     private Long id;
+    private String name;
+
+    public User(String name) {
+        this.name = name;
+    }
 
     @Id
     @NotNull
@@ -21,4 +26,8 @@ public class User {
         return id;
     }
 
+    @Column(name="name")
+    public String getName() {
+        return name;
+    }
 }
