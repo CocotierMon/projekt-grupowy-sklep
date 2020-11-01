@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,4 +14,8 @@ public class Product {
 
     @Id
     private Long id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "group")
+    private Group group;
 }
