@@ -18,4 +18,5 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group")
     private Group group;
+
 }

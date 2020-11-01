@@ -40,4 +40,5 @@ public class Group {
     public void setProductsList(List<Product> productsList) {
         this.productsList = productsList;
     }
+
 }
