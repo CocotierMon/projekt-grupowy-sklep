@@ -1,7 +1,9 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,12 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "PRODUCTS")
+@Entity(name = "PRODUCTS")
 public class Product {
 
     private Long id;
+    public Group groupId;
+    private Order orderId;
     private List<Cart> carts = new ArrayList<>();
 
     @Id
@@ -24,7 +29,6 @@ public class Product {
     public Long getId(){
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -46,19 +50,28 @@ public class Product {
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "group")
-    private Group group;
+    @JoinColumn(name = "groupId")
+    public Group getGroupId() { return groupId; }
+    public void setGroupId(Group groupId) { this.groupId = groupId; }
 
     @ManyToOne(cascade = CascadeType.ALL)
     //@JoinColumn(name = "order_id")
-    private Order orderId;
+    public Order getOrderId() { return orderId;}
+    public void setOrderId(Order orderId) { this.orderId = orderId;}
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     public List<Cart> getCarts() {
         return carts;
     }
-
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
+    }
+
+    public Product(Long id, String name, String description, double price, Group groupId ){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.groupId = groupId;
     }
 }
