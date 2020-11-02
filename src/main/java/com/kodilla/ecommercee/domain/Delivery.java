@@ -17,6 +17,6 @@ public class Delivery {
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "id", nullable = true)
+    @Column(name = "id")
     private Long id;
 }

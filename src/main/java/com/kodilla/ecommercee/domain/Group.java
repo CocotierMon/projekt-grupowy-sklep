@@ -18,6 +18,7 @@ import java.util.List;
 public class Group {
 
     private Long id;
+    private String groupName;
     private List<Product> productsList = new ArrayList<>();
 
     @Id
@@ -32,7 +33,7 @@ public class Group {
     }
 
     @Column(name = "group_name")
-    private String groupName;
+    public void setGroupName(String groupName) { this.groupName = groupName; }
 
     @OneToMany(
             targetEntity = Product.class,

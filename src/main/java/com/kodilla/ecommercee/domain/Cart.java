@@ -28,9 +28,11 @@ public class Cart {
     @NotNull
     @Column(name = "id", unique = true)
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     @Column(name="sum")
     public Long getSum() { return sum;}
+    public void setSum(Long sum) { this.sum = sum; }
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "join_cart_product",
