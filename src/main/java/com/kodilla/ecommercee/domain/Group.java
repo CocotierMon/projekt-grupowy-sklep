@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "GROUPS")
+@Table(name = "GROUPS")
 public class Group {
 
     private Long id;
@@ -24,7 +25,7 @@ public class Group {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "group_id", unique = true)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -34,6 +35,7 @@ public class Group {
 
     @Column(name = "group_name")
     public void setGroupName(String groupName) { this.groupName = groupName; }
+    public String getGroupName() { return groupName; }
 
     @OneToMany(
             targetEntity = Product.class,
@@ -43,7 +45,8 @@ public class Group {
     public List<Product> getProductsList() { return productsList; }
     public void setProductsList(List<Product> productsList) { this.productsList = productsList; }
 
-    public Group(String groupName) {
-        this.groupName=groupName;
+    public Group(Long id, String groupName) {
+        this.id = id;
+        this.groupName = groupName;
     }
 }

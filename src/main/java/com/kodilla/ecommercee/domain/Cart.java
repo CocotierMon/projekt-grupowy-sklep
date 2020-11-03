@@ -26,7 +26,7 @@ public class Cart {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "id", unique = true)
+    @Column(name = "id")
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -36,9 +36,9 @@ public class Cart {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "join_cart_product",
-            joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")})
-    @Column(name="products")
+            joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")})
+           // inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")})
+    @Column(name="product")
     public List<Product> getProducts() { return products;}
     public void setProducts(List<Product> products) { this.products = products; }
 
@@ -54,4 +54,9 @@ public class Cart {
     @JoinColumn(name="user_id")
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+
+    public Cart(List<Product> products, User user) {
+        this.products = products;
+        this.user = user;
+    }
 }

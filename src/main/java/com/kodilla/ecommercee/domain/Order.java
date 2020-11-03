@@ -8,8 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -18,18 +16,19 @@ import java.util.List;
 @Entity(name = "ORDERS")
 public class Order {
 
+    private User user;
     private Long id;
     private LocalDate fulfillment;
     private LocalDate date_of_order_acceptance;
     private LocalDate date_of_order;
     private Delivery delivery;
     private Cart cart;
-    private List<Product> products;
+    private Invoice invoice;
 
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "id", unique = true)
+    @Column(name = "id")
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -46,7 +45,7 @@ public class Order {
     public void setFulfillment(LocalDate fulfillment) { this.fulfillment = fulfillment; }
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cartId")
+    @JoinColumn(name = "cart_id")
     public Cart getCart() { return cart; }
     public void setCart(Cart cart) { this.cart = cart; }
 
@@ -55,17 +54,27 @@ public class Order {
     public Delivery getDelivery() { return delivery; }
     public void setDelivery(Delivery delivery) { this.delivery = delivery; }
 
-    @OneToMany(
-            targetEntity = Product.class,
-            mappedBy = "orderId",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
-    public List<Product> getProducts() { return products; }
-    public void setProducts(List<Product> products) { this.products = products; }
+    @OneToOne
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 
-    public Order(Cart cart) {
-        this.date_of_order = LocalDate.now();
+    @ManyToOne
+    @Transient
+    public Invoice getInvoice() { return invoice; }
+    @Transient
+    public void setInvoice(Invoice invoice) { this.invoice = invoice; }
+
+    public Order(LocalDate date_of_order, Delivery delivery, Cart cart, User user) {
+        this.date_of_order = date_of_order;
+        this.delivery = delivery;
         this.cart = cart;
-        this.products = new ArrayList<>();
+        this.user = user;
     }
+
+    private Invoice invoices;
+    @Transient
+    @OneToOne
+    public Invoice getInvoices() { return invoices; }
+    @Transient
+    public void setInvoices(Invoice invoices) { this.invoices = invoices; }
 }
