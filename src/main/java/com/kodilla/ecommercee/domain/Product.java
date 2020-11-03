@@ -1,22 +1,23 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
-@Entity(name = "PRODUCTS")
+@NoArgsConstructor
+@Entity
+@Table(name = "PRODUCTS")
 public class Product {
 
     @Id
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "group")
+    @JoinColumn(name = "group_id")
     private Group group;
-
 }
