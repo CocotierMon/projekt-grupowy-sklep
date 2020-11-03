@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Table(name="carts")
 public class Cart {
     private Long id;
-    private Long sum = 0L;
+    private BigDecimal sum = new BigDecimal(0);
     private List<Product> products = new ArrayList<>();
     private List<Order> orders = new ArrayList<>();
     private User user;
@@ -27,7 +28,7 @@ public class Cart {
     }
 
     @Column(name="sum")
-    public Long getSum() {
+    public BigDecimal getSum() {
         return sum;
     }
 
