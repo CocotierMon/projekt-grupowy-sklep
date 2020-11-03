@@ -18,14 +18,17 @@ import java.util.List;
 public class Product {
 
     private Long id;
+    private String name;
+    private String description;
+    private double price;
     public Group groupId;
-    private Order orderId;
     private List<Cart> carts = new ArrayList<>();
+    private Invoice invoice;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     public Long getId(){
         return id;
     }
@@ -33,41 +36,41 @@ public class Product {
         this.id = id;
     }
 
-    @Column(name = "name")
+    @Column(name = "product_name")
     @NotNull
-    private String name;
-    @Column(name = "price_nett")
-    private double priceNett;
-    @Column(name = "vat_rate")
-    private int vatRate;
-    @Column(name = "price")
-    @NotNull
-    private double price;
-    @Column(name = "stock_quantity")
-    private int stockQuantity;
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
     @Column(name = "description")
     @NotNull
-    private String description;
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    @Column(name = "price")
+    @NotNull
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "groupId")
+    @JoinColumn(name = "group_id")
     public Group getGroupId() { return groupId; }
     public void setGroupId(Group groupId) { this.groupId = groupId; }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "order_id")
-    public Order getOrderId() { return orderId;}
-    public void setOrderId(Order orderId) { this.orderId = orderId;}
-
+    @Transient
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
-    public List<Cart> getCarts() {
-        return carts;
-    }
+    public List<Cart> getCarts() { return carts; }
+    @Transient
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
     }
 
-    public Product(Long id, String name, String description, double price, Group groupId ){
+    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
+    public Invoice getInvoice() { return invoice; }
+    @Transient
+    public void setInvoice(Invoice invoice) { this.invoice = invoice; }
+
+    public Product(Long id, String name, String description, double price, Group groupId) {
         this.id = id;
         this.name = name;
         this.description = description;
