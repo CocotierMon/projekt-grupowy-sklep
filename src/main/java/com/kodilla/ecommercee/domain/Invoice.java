@@ -14,15 +14,15 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "invoices")
+public class Invoice {
     @Id
     @NotNull
     @GeneratedValue
     @Column(name = "id", nullable = true)
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
-    private List<Cart> carts = new ArrayList<>();
-
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id")
+    private Order order;
 }
