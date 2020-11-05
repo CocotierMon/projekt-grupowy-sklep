@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -16,25 +17,25 @@ import javax.validation.constraints.NotNull;
 public class Delivery {
 
     private Long id;
-    private double value;
+    private BigDecimal value;
     private Invoices invoice;
 
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "ID")
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    @Column(name = "value")
-    public double getValue() { return value; }
-    public void setValue(double value) { this.value = value; }
+    @Column(name = "VALUE")
+    public BigDecimal getValue() { return value; }
+    public void setValue(BigDecimal value) { this.value = value; }
 
     @Transient
     public Invoices getInvoice() { return invoice; }
     public void setInvoice(Invoices invoice) { this.invoice = invoice; }
 
-    public Delivery(Long id, double value) {
+    public Delivery(Long id, BigDecimal value) {
         this.id = id;
         this.value = value;
     }

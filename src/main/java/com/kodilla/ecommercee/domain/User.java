@@ -25,31 +25,31 @@ public class User {
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "ID")
     public Long getId(){
         return id;
     }
     public void setId(Long id) { this.id = id; }
 
-    @Column(name = "username")
+    @Column(name = "USERNAME")
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
 
-    @Column(name = "status")
+    @Column(name = "STATUS")
     public int getStatus() { return status; }
     public void setStatus(int status) { this.status = status; }
 
-    @Column(name = "user_key")
+    @Column(name = "USER_KEY")
     public int getUserKey() { return userKey; }
     public void setUserKey(int userKey) { this.userKey = userKey; }
 
     @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
-    @JoinColumn(name="order_id")
+    @JoinColumn(name="ORDER_ID")
     public Order getOrderId() { return orderId; }
     public void setOrderId(Order orderId) { this.orderId = orderId; }
 
     @OneToOne
-    @JoinColumn(name = "invoice_id")
+    @JoinColumn(name = "INVOICE_ID")
     public Invoices getInvoice() { return invoice; }
     public void setInvoice(Invoices invoice) { this.invoice = invoice; }
 

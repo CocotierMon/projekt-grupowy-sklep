@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "GRUPY")
+@Entity(name = "GROUPS")
 public class Group {
 
     private Long id;
@@ -24,7 +24,7 @@ public class Group {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "id")
+    @Column(name = "ID")
     public Long getId() {
         return id;
     }
@@ -32,7 +32,7 @@ public class Group {
         this.id = id;
     }
 
-    @Column(name = "group_name")
+    @Column(name = "GROUP_NAME")
     public void setGroupName(String groupName) { this.groupName = groupName; }
     public String getGroupName() { return groupName; }
 

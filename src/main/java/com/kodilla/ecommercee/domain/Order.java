@@ -27,33 +27,34 @@ public class Order {
     private Cart cart;
     private List<Product> productList = new ArrayList<>();
     private Invoices invoice;
+    private int amount;
 
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "ID")
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    @Column(name = "date_of_order")
+    @Column(name = "DATE_OF_ORDER")
     public LocalDate getDate_of_order() { return date_of_order; }
     public void setDate_of_order(LocalDate date_of_order) { this.date_of_order = date_of_order; }
 
-    @Column(name = "date_of_order_acceptance")
+    @Column(name = "DATE_OF_ORDER_ACCEPTANCE")
     public LocalDate getDate_of_order_acceptance() { return date_of_order_acceptance; }
     public void setDate_of_order_acceptance(LocalDate date_of_order_acceptance) { this.date_of_order_acceptance = date_of_order_acceptance; }
 
-    @Column(name = "date_of_order_fulfillment")
+    @Column(name = "DATE_OF_ORDER_FULFILLMENT")
     public LocalDate getFulfillment() { return fulfillment; }
     public void setFulfillment(LocalDate fulfillment) { this.fulfillment = fulfillment; }
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "CART_ID")
     public Cart getCart() { return cart; }
     public void setCart(Cart cart) { this.cart = cart; }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "delivery_id")
+    @JoinColumn(name = "DELIVERY_ID")
     public Delivery getDelivery() { return delivery; }
     public void setDelivery(Delivery delivery) { this.delivery = delivery; }
 
@@ -62,9 +63,9 @@ public class Order {
     public void setUser(User user) { this.user = user; }
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "join_products_fromCarts",
-            joinColumns = {@JoinColumn(name = "carts_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "products_id", referencedColumnName = "id")})
+    @JoinTable(name = "JOIN_PRODUCTS_FROM_CARTS",
+            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCTS_ID", referencedColumnName = "ID")})
     public List<Product> getProductList() { return cart.getProducts(); }
     public void setProductList(List<Product> productList) { this.productList = productList; }
 
@@ -72,6 +73,10 @@ public class Order {
     @OneToOne
     public Invoices getInvoice() { return invoice; }
     public void setInvoice(Invoices invoices) { this.invoice = invoice; }
+
+    @Column(name = "AMOUNT")
+    public int getAmount() { return amount; }
+    public void setAmount(int amount) { this.amount = amount; }
 
     public Order(LocalDate date_of_order, Delivery delivery, Cart cart, List<Product> productList, User user) {
         this.date_of_order = date_of_order;
