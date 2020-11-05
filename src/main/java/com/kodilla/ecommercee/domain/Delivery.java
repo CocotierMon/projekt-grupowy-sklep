@@ -12,13 +12,12 @@ import javax.validation.constraints.NotNull;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "DELIVERYS")
+@Entity(name = "DELIVERIES")
 public class Delivery {
 
     private Long id;
     private double value;
-    @Transient
-    private Invoice invoice;
+    private Invoices invoice;
 
     @Id
     @NotNull
@@ -32,8 +31,8 @@ public class Delivery {
     public void setValue(double value) { this.value = value; }
 
     @Transient
-    public Invoice getInvoice() { return invoice; }
-    public void setInvoice(Invoice invoice) { this.invoice = invoice; }
+    public Invoices getInvoice() { return invoice; }
+    public void setInvoice(Invoices invoice) { this.invoice = invoice; }
 
     public Delivery(Long id, double value) {
         this.id = id;

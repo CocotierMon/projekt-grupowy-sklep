@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "INVOICES")
-public class Invoice {
+public class Invoices {
 
     private Long id;
     private List<Product> productList = new ArrayList<>();
@@ -26,6 +26,14 @@ public class Invoice {
     private double sum;
     private User user;
 
+    @Column(name = "date")
+    public LocalDate getOrder() { return order; }
+    public void setOrder(LocalDate order) { this.order = order; }
+
+    @Column(name = "deliveries")
+    public double getDelivery() { return delivery; }
+    public void setDelivery(double delivery) { this.delivery = delivery; }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
@@ -33,12 +41,12 @@ public class Invoice {
     public Long getId(){ return id; }
     public void setId(Long id) { this.id = id; }
 
-    @Column(name = "sum")
+    @Column(name = "sums")
     public double getSum() { return sum; }
     public void setSum(double sum) { this.sum = sum; }
 
     @OneToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "userId")
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 
@@ -50,7 +58,7 @@ public class Invoice {
     public List<Product> getProductList() { return productList; }
     public void setProductList(List<Product> productList) { this.productList = productList; }
 
-    public Invoice(Long id, List<Product> productList, Order order, Delivery delivery, double sum, User user) {
+    public Invoices(Long id, List<Product> productList, Order order, Delivery delivery, double sum, User user) {
         this.id = id;
         this.productList = cart.getProducts();
         this.order = order.getFulfillment();

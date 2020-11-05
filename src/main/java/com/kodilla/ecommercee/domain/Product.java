@@ -23,7 +23,7 @@ public class Product {
     private double price;
     public Group groupId;
     private List<Cart> carts = new ArrayList<>();
-    private Invoice invoice;
+    private Invoices invoice;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -66,9 +66,8 @@ public class Product {
 
     @Transient
     @OneToOne(cascade = CascadeType.ALL)
-    public Invoice getInvoice() { return invoice; }
-    @Transient
-    public void setInvoice(Invoice invoice) { this.invoice = invoice; }
+    public Invoices getInvoice() { return invoice; }
+    public void setInvoice(Invoices invoice) { this.invoice = invoice; }
 
     public Product(Long id, String name, String description, double price, Group groupId) {
         this.id = id;
@@ -77,4 +76,5 @@ public class Product {
         this.price = price;
         this.groupId = groupId;
     }
+
 }

@@ -36,9 +36,8 @@ public class Cart {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "join_cart_product",
-            joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")})
-           // inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")})
-    @Column(name="product")
+            joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "products_id", referencedColumnName = "id")})
     public List<Product> getProducts() { return products;}
     public void setProducts(List<Product> products) { this.products = products; }
 
@@ -59,4 +58,5 @@ public class Cart {
         this.products = products;
         this.user = user;
     }
+
 }

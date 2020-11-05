@@ -14,8 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "GROUPS")
-@Table(name = "GROUPS")
+@Entity(name = "GRUPY")
 public class Group {
 
     private Long id;

@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "USERS")
-@Table(name = "USERS")
 public class User {
 
     private Long id;
@@ -21,14 +20,7 @@ public class User {
     private int status;
     private int userKey;
     private Order orderId;
-    private Invoice invoice;
-
-    public User(Long id, String username, int status, int userKey) {
-        this.id = id;
-        this.username = username;
-        this.status = status;
-        this.userKey = userKey;
-    }
+    private Invoices invoice;
 
     @Id
     @NotNull
@@ -57,7 +49,14 @@ public class User {
     public void setOrderId(Order orderId) { this.orderId = orderId; }
 
     @OneToOne
-    @JoinColumn(name = "invoiceId")
-    public Invoice getInvoice() { return invoice; }
-    public void setInvoice(Invoice invoice) { this.invoice = invoice; }
+    @JoinColumn(name = "invoice_id")
+    public Invoices getInvoice() { return invoice; }
+    public void setInvoice(Invoices invoice) { this.invoice = invoice; }
+
+    public User(Long id, String username, int status, int userKey) {
+        this.id = id;
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+    }
 }

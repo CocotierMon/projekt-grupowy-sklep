@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,7 +25,8 @@ public class Order {
     private LocalDate date_of_order;
     private Delivery delivery;
     private Cart cart;
-    private Invoice invoice;
+    private List<Product> productList = new ArrayList<>();
+    private Invoices invoice;
 
     @Id
     @NotNull
@@ -58,23 +61,24 @@ public class Order {
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 
-    @ManyToOne
-    @Transient
-    public Invoice getInvoice() { return invoice; }
-    @Transient
-    public void setInvoice(Invoice invoice) { this.invoice = invoice; }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "join_products_fromCarts",
+            joinColumns = {@JoinColumn(name = "carts_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "products_id", referencedColumnName = "id")})
+    public List<Product> getProductList() { return cart.getProducts(); }
+    public void setProductList(List<Product> productList) { this.productList = productList; }
 
-    public Order(LocalDate date_of_order, Delivery delivery, Cart cart, User user) {
+    @Transient
+    @OneToOne
+    public Invoices getInvoice() { return invoice; }
+    public void setInvoice(Invoices invoices) { this.invoice = invoice; }
+
+    public Order(LocalDate date_of_order, Delivery delivery, Cart cart, List<Product> productList, User user) {
         this.date_of_order = date_of_order;
         this.delivery = delivery;
         this.cart = cart;
+        this.productList = cart.getProducts();
         this.user = user;
     }
 
-    private Invoice invoices;
-    @Transient
-    @OneToOne
-    public Invoice getInvoices() { return invoices; }
-    @Transient
-    public void setInvoices(Invoice invoices) { this.invoices = invoices; }
 }
