@@ -11,35 +11,39 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Entity
-@Table(name="carts")
+@Table(name="CARTS")
 public class Cart {
     private Long id;
     private BigDecimal sum = new BigDecimal(0);
     private List<Product> products = new ArrayList<>();
     private List<Order> orders = new ArrayList<>();
     private User user;
+    private int amount;
 
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "id", unique = true)
+    @Column(name = "ID", unique = true)
     public Long getId() {
         return id;
     }
 
-    @Column(name="sum")
+    @Column(name="SUM")
     public BigDecimal getSum() {
         return sum;
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "join_cart_product",
-            joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")})
-    @Column(name="products")
+    @JoinTable(name = "JOIN_CART_PRODUCT",
+            joinColumns = {@JoinColumn(name = "CARD_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
+    @Column(name="PRODUCTS")
     public List<Product> getProducts() {
         return products;
     }
+
+    @Column(name = "AMOUNT")
+    public int getAmount() { return amount; }
 
     @OneToMany(targetEntity = Order.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() {
@@ -47,7 +51,7 @@ public class Cart {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="USER_ID")
     public User getUser() {
         return user;
     }

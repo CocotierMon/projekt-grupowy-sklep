@@ -11,21 +11,20 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Entity
-@Table(name = "products")
+@Table(name = "PRODUCTS")
 public class Product {
     private Long id;
     private List<Cart> carts = new ArrayList<>();
 
     @Id
-    @NotNull
     @GeneratedValue
-    @Column(name = "id", nullable = true)
+    @NotNull
+    @Column(name = "ID", nullable = true)
     public Long getId(){
         return id;
     }
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
-    public List<Cart> getCarts() {
-        return carts;
-    }
+    public List<Cart> getCarts() { return carts; }
+
 }

@@ -9,25 +9,24 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Setter
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User {
     private Long id;
     private String name;
 
     public User(String name) {
         this.name = name;
-
     }
 
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "id", nullable = true)
+    @Column(name = "ID", nullable = true)
     public Long getId(){
         return id;
     }
 
-    @Column(name="name")
+    @Column(name="NAME")
     public String getName() {
         return name;
     }
