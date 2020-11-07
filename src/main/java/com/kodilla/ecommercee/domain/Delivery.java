@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,20 +14,42 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "DELIVERIES")
 public class Delivery {
 
+    private Long id;
+    private BigDecimal value;
+    private Order order;
+
+    public Delivery(BigDecimal value) {
+        this.value = value;
+    }
+
     @Id
     @NotNull
     @GeneratedValue
     @Column(name = "DELIVERY_ID")
-    private Long id;
+    public Long getId() {
+        return id;
+    }
 
     @Column(name = "DELIVERY_VALUE")
-    private Long value;
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
 
     @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "ORDER_ID")
+    public Order getOrder() {
+        return order;
+    }
 
-
-
-
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
