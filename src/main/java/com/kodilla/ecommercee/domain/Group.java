@@ -15,14 +15,26 @@ import java.util.List;
 @Entity(name = "GROUPS")
 public class Group {
 
+    private Long id;
+    private String groupName;
+    private List<Product> productsList = new ArrayList<>();
+
+    public Group(String groupName) {
+        this.groupName = groupName;
+    }
+
     @Id
     @GeneratedValue
     @NotNull
     @Column(name = "GROUP_ID", unique = true)
-    private Long id;
+    public Long getId() {
+        return id;
+    }
 
     @Column(name = "GROUP_NAME")
-    private String groupName;
+    public String getGroupName() {
+        return groupName;
+    }
 
     @OneToMany(
             targetEntity = Product.class,
@@ -31,10 +43,17 @@ public class Group {
             fetch = FetchType.LAZY
     )
 
-    private List<Product> productsList = new ArrayList<>();
 
-    public Group(String groupName) {
-        this.groupName=groupName;
+    public List<Product> getProductsList() {
+        return productsList;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public void setProductsList(List<Product> productsList) {
