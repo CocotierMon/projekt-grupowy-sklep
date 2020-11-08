@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -42,4 +41,5 @@ public class Group {
             fetch = FetchType.LAZY
     )
     public List<Product> getProductsList() { return productsList; }
+
 }

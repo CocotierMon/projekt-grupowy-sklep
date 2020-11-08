@@ -36,4 +36,5 @@ public class Invoices {
         this.user = user;
         this.order = order;
     }
+
 }

@@ -14,6 +14,7 @@ import lombok.Setter;
 @Entity
 @Table(name="CARTS")
 public class Cart {
+
     private Long id;
     private BigDecimal sum = new BigDecimal(0);
     private List<Product> products = new ArrayList<>();

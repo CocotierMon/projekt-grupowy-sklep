@@ -81,5 +81,4 @@ public class Order {
         this.total_sum_of_order = cart.getSum().add(delivery.getValue());
         this.user = user;
     }
-
 }

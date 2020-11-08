@@ -31,4 +31,5 @@ public class Delivery {
     public Delivery(BigDecimal value) {
         this.value = value;
     }
+
 }
