@@ -25,11 +25,11 @@ public class Invoices {
     @Column(name = "ID")
     public Long getId() { return id; }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USERS")
     public User getUser() { return user; }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     public Order getOrder() { return order; }
 
     public Invoices(User user, Order order) {

@@ -43,5 +43,4 @@ public class Group {
     )
     public List<Product> getProductsList() { return productsList; }
     public void setProductsList(List<Product> productsList) { this.productsList = productsList; }
-
 }

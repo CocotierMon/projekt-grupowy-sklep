@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -17,8 +18,14 @@ public class User {
     private String username;
     private int status;
     private int userKey;
+    private String postcode;
+    private String town;
+    private String street;
+    private Long houseNumber;
+    private Long apartmentNumber;
+    private Cart cart;
     private Order orderId;
-    private Invoices invoice;
+    private List<Invoices> invoice;
 
     @Id
     @NotNull
@@ -41,15 +48,40 @@ public class User {
     public int getUserKey() { return userKey; }
     public void setUserKey(int userKey) { this.userKey = userKey; }
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CART", referencedColumnName = "ID")
+    public Cart getCart(){ return cart; }
+    public void setCart(Cart cart) { this.cart = cart; }
+
     @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.LAZY)
     @JoinColumn(name="ORDER_ID")
     public Order getOrderId() { return orderId; }
     public void setOrderId(Order orderId) { this.orderId = orderId; }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "INVOICES")
-    public Invoices getInvoice() { return invoice; }
-    public void setInvoice(Invoices invoice) { this.invoice = invoice; }
+    @OneToMany(targetEntity = Invoices.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "INVOICES")
+    public List<Invoices> getInvoice() { return invoice; }
+    public void setInvoice(List<Invoices> invoice) { this.invoice = invoice; }
+
+    @Column(name = "POSTCODE")
+    public String getPostcode() { return postcode; }
+    public void setPostcode(String postcode) { this.postcode = postcode; }
+
+    @Column(name = "TOWN")
+    public String getTown() { return town; }
+    public void setTown(String town) { this.town = town; }
+
+    @Column(name = "STREET")
+    public String getStreet() { return street; }
+    public void setStreet(String street) { this.street = street; }
+
+    @Column(name = "HOUSE_NUMBER")
+    public Long getHouseNumber() { return houseNumber; }
+    public void setHouseNumber(Long houseNumber) { this.houseNumber = houseNumber; }
+
+    @Column(name = "APARTMENT_NUMBER")
+    public Long getApartmentNumber() { return apartmentNumber; }
+    public void setApartmentNumber(Long apartmentNumber) { this.apartmentNumber = apartmentNumber; }
 
     public User(String username, int status, int userKey) {
         this.username = username;

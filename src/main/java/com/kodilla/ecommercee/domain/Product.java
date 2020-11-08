@@ -22,7 +22,7 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
-    public Group groupId;
+    private Group groupId;
     private List<Cart> carts = new ArrayList<>();
 
     @Id
