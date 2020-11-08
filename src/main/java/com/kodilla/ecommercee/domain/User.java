@@ -55,7 +55,6 @@ public class User {
     public Long getStatus() {
         return status;
     }
-
     @Column(name="USER_KEY")
     public Long getUserKey() {
         return userKey;

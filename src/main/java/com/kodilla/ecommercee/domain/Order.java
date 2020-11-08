@@ -32,6 +32,7 @@ public class Order {
     private Cart getCart(){
         return cart;
     };
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USER_ID")
     public User getUser() {

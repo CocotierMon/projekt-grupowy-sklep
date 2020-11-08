@@ -15,7 +15,6 @@ public class Cart {
     private Long id;
     private Long sum = 0L;
     private List<Order> orders = new ArrayList<>();
-    private User user;
 
     @Id
     @GeneratedValue
