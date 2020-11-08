@@ -16,6 +16,11 @@ public class Cart {
     private Long sum = 0L;
     private List<Order> orders = new ArrayList<>();
 
+    public Cart(Long sum, List<Order> orders) {
+        this.sum = sum;
+        this.orders = orders;
+    }
+
     @Id
     @GeneratedValue
     @NotNull
@@ -29,7 +34,7 @@ public class Cart {
         return sum;
     }
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "CART", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() {
         return orders;
     }

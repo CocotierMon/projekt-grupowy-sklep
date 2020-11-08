@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -11,7 +10,6 @@ import java.util.List;
 
 @NoArgsConstructor
 @Setter
-@Getter
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -35,9 +33,9 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "CART", referencedColumnName = "ID")
-    public Cart getCart(){
+    public Cart getCart() {
         return cart;
-    };
+    }
 
     @OneToMany(targetEntity = Order.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() {
@@ -57,34 +55,41 @@ public class User {
         return id;
     }
 
-    @Column(name="STATUS")
+    @Column(name = "STATUS")
     public Long getStatus() {
         return status;
     }
-    @Column(name="USER_KEY")
+
+    @Column(name = "USER_KEY")
     public Long getUserKey() {
         return userKey;
     }
+
     @Column(name = "USERNAME")
     public String getUsername() {
         return username;
     }
+
     @Column(name = "POSTCODE")
     public String getPostcode() {
         return postcode;
     }
+
     @Column(name = "TOWN")
     public String getTown() {
         return town;
     }
+
     @Column(name = "STREET")
     public String getStreet() {
         return street;
     }
+
     @Column(name = "HOUSE_NUMBER")
     public Long getHouseNumber() {
         return houseNumber;
     }
+
     @Column(name = "APARTMENT_NUMBER")
     public Long getApartmentNumber() {
         return apartmentNumber;
