@@ -18,7 +18,6 @@ public class Cart {
     private List<Product> products = new ArrayList<>();
     private List<Order> orders = new ArrayList<>();
     private User user;
-    private int amount;
 
     @Id
     @GeneratedValue
@@ -41,9 +40,6 @@ public class Cart {
         return products;
     }
 
-    @Column(name = "AMOUNT")
-    public int getAmount() { return amount; }
-
     @OneToMany(targetEntity = Order.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() {
         return orders;
@@ -53,5 +49,14 @@ public class Cart {
     @JoinColumn(name="USER_ID")
     public User getUser() {
         return user;
+    }
+
+    public void addProduct(Product product, int amount){
+        if(amount>0){
+            for(int i=0; i<amount; i++){
+                products.add(product);
+                sum = sum.add(product.getPrice());
+            }
+        }
     }
 }

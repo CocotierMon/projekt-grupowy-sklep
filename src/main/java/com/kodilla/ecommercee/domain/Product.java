@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,13 @@ import java.util.List;
 public class Product {
     private Long id;
     private List<Cart> carts = new ArrayList<>();
+    private String name;
+    private BigDecimal price;
+
+    public Product (String name, BigDecimal price){
+        this.name = name;
+        this.price = price;
+    }
 
     @Id
     @GeneratedValue
@@ -26,5 +34,10 @@ public class Product {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     public List<Cart> getCarts() { return carts; }
+
+    @Column(name = "PRICE")
+    @NotNull
+    public BigDecimal getPrice() { return price; }
+    public void setPrice(BigDecimal price) { this.price = price; }
 
 }
