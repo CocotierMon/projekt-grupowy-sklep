@@ -6,63 +6,48 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity(name="CARTS")
+@Setter
+@Entity
+@Table(name="CARTS")
 public class Cart {
-
     private Long id;
-    private BigDecimal sum;
+    private BigDecimal sum = new BigDecimal(0);
     private List<Product> products = new ArrayList<>();
     private List<Order> orders = new ArrayList<>();
     private User user;
-    private int amount;
 
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true)
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
     @Column(name="SUM")
-    public BigDecimal getSum() { return sum;}
-    public void setSum(BigDecimal sum) { this.sum = sum; }
+    public BigDecimal getSum() { return sum; }
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "JOIN_CART_PRODUCT",
-            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRODUCTS_ID", referencedColumnName = "ID")})
-    public List<Product> getProducts() { return products;}
-    public void setProducts(List<Product> products) { this.products = products; }
+            joinColumns = {@JoinColumn(name = "CARD_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
+    public List<Product> getProducts() { return products; }
 
-    @OneToMany(
-            targetEntity = Order.class,
-            mappedBy = "cart",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() { return orders; }
-    public void setOrders(List<Order> orders) { this.orders = orders; }
 
     @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
     @JoinColumn(name="USER_ID")
     public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
 
-    @Column(name = "AMOUNT")
-    public int getAmount() { return amount; }
-    public void setAmount(int amount) { this.amount = amount; }
-
-    public Cart(List<Product> products, User user) {
-        this.products = products;
-        this.user = user;
+    public void addProduct(Product product, int amount){
+        if(amount>0){
+            for(int i=0; i<amount; i++){
+                products.add(product);
+                sum = sum.add(product.getPrice());
+            }
+        }
     }
-
 }

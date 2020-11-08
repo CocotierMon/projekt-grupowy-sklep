@@ -3,13 +3,11 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "USERS")
@@ -43,20 +41,23 @@ public class User {
     public int getUserKey() { return userKey; }
     public void setUserKey(int userKey) { this.userKey = userKey; }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.LAZY)
     @JoinColumn(name="ORDER_ID")
     public Order getOrderId() { return orderId; }
     public void setOrderId(Order orderId) { this.orderId = orderId; }
 
-    @OneToOne
-    @JoinColumn(name = "INVOICE_ID")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "INVOICES")
     public Invoices getInvoice() { return invoice; }
     public void setInvoice(Invoices invoice) { this.invoice = invoice; }
 
-    public User(Long id, String username, int status, int userKey) {
-        this.id = id;
+    public User(String username, int status, int userKey) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
+    }
+
+    public User(String username) {
+        this.username = username;
     }
 }
