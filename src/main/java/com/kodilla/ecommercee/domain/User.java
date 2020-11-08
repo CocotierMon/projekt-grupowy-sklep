@@ -39,12 +39,12 @@ public class User {
         return cart;
     };
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "USER", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() {
         return orders;
     }
 
-    @OneToMany(targetEntity = Invoice.class, mappedBy = "USER", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Invoice> getInvoices() {
         return invoices;
     }
