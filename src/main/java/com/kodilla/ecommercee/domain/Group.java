@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity(name = "ADM_GROUP")
 public class Group {
 
@@ -29,11 +31,9 @@ public class Group {
     @NotNull
     @Column(name = "GROUP_ID", unique = true)
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
     @Column(name = "GROUP_NAME")
     public String getGroupName() { return groupName; }
-    public void setGroupName(String groupName) { this.groupName = groupName; }
 
     @OneToMany(
             targetEntity = Product.class,
@@ -42,5 +42,4 @@ public class Group {
             fetch = FetchType.LAZY
     )
     public List<Product> getProductsList() { return productsList; }
-    public void setProductsList(List<Product> productsList) { this.productsList = productsList; }
 }

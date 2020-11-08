@@ -54,7 +54,8 @@ public class Order {
     @JoinColumn(name = "DELIVERY_ID")
     public Delivery getDelivery() { return delivery; }
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID")
     public User getUser() { return user; }
 
     @ManyToMany(cascade = CascadeType.ALL)
