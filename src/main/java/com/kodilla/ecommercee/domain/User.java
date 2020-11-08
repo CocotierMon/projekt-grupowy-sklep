@@ -27,6 +27,7 @@ public class User {
     private Long apartmentNumber;
     private Cart cart;
     private List<Order> orders = new ArrayList<>();
+    private List<Invoice> invoices = new ArrayList<>();
 
     public User(String username) {
         this.username = username;
@@ -41,6 +42,11 @@ public class User {
     @OneToMany(targetEntity = Order.class, mappedBy = "USER", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() {
         return orders;
+    }
+
+    @OneToMany(targetEntity = Invoice.class, mappedBy = "USER", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Invoice> getInvoices() {
+        return invoices;
     }
 
     @Id
