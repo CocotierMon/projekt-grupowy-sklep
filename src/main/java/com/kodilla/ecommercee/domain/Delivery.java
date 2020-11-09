@@ -9,22 +9,29 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "deliverys")
+@Table(name = "DELIVERYS")
 public class Delivery {
+
+    private Long id;
+    private BigDecimal value = new BigDecimal(0);
+    private Order order;
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "id", nullable = true)
-    private Long id;
-
-    @Column(name = "cost_of_delivery")
-    private BigDecimal cost_of_delivery = new BigDecimal(0);
-
+    @Column(name = "ID", nullable = true)
+    public Long getId() {
+        return id;
+    }
+    @Column(name = "COST_OF_DELIVERY")
+    public BigDecimal getValue() {
+        return value;
+    }
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "ORDER_ID")
+    public Order getOrder() {
+        return order;
+    }
 }

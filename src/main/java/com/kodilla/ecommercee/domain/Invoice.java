@@ -10,19 +10,27 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "invoices")
+@Table(name = "INVOICES")
 public class Invoice {
+
+    private Long id;
+    private Order order;
+
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "id", nullable = true)
-    private Long id;
+    @Column(name = "ID", nullable = true)
+    public Long getId() {
+        return id;
+    }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "ORDER_ID")
+    public Order getOrder() {
+        return order;
+    }
 }

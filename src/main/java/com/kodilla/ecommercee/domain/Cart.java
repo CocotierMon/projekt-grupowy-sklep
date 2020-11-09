@@ -11,30 +11,44 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "carts")
-@Access(AccessType.FIELD)
+@Table(name = "CARTS")
 public class Cart {
+
+    private Long id;
+    private BigDecimal sum = new BigDecimal(0);
+    private List<Product> products = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
+    private User user;
+
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "id", nullable = true)
-    private Long id;
-
-    @Column(name = "sum")
-    private BigDecimal sum = new BigDecimal(0);
-
+    @Column(name = "ID", nullable = true)
+    public Long getId() {
+        return id;
+    }
+    @Column(name = "SUM")
+    public BigDecimal getSum() {
+        return sum;
+    }
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "join_cart_product",
-            joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")})
-    @Column(name="products")
-    private List<Product> products = new ArrayList<>();
-
+    @JoinTable(name = "JOIN_CART_PRODUCT",
+            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
+    public List<Product> getProducts() {
+        return products;
+    }
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Order.class, mappedBy = "cart")
-    private List<Order> orders = new ArrayList<>();
+    public List<Order> getOrders() {
+        return orders;
+    }
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public User getUser() {
+        return user;
+    }
 }
 
