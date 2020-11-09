@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Entity(name = "GROUPS")
+@Entity(name = "GROUPS_ALL")
 public class Group {
 
     private Long id;
