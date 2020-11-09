@@ -21,7 +21,7 @@ public class Delivery {
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "ID", nullable = true)
+    @Column(name = "ID", unique = true)
     public Long getId() {
         return id;
     }
