@@ -18,6 +18,7 @@ public class Delivery {
 
     private Long id;
     private BigDecimal value;
+    private Order order;
 
     @Id
     @NotNull
@@ -27,6 +28,10 @@ public class Delivery {
 
     @Column(name = "VALUE")
     public BigDecimal getValue() { return value; }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
+    @JoinColumn(name = "ORDER_ID")
+    public Order getOrder() { return order; }
 
     public Delivery(BigDecimal value) {
         this.value = value;

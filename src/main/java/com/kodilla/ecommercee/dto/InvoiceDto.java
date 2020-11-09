@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvoicesDto {
+public class InvoiceDto {
     private Long id;
     private User user;
     private Order order;

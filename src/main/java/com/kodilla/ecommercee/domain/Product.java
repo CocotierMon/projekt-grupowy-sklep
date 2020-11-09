@@ -23,7 +23,9 @@ public class Product {
     private String description;
     private BigDecimal price;
     private Group groupId;
+    private List<Order> orders = new ArrayList<>();
     private List<Cart> carts = new ArrayList<>();
+    private int amount;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,15 +49,20 @@ public class Product {
     @JoinColumn(name = "GROUP_ID")
     public Group getGroupId() { return groupId; }
 
-    @Transient
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     public List<Cart> getCarts() { return carts; }
 
-    public Product(String name, String description, BigDecimal price) {
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    public List<Order> getOrders() { return orders; }
+
+    @Column(name = "AMOUNT")
+    public int getAmount() { return amount; }
+
+    public Product(String name, String description, BigDecimal price, int amount) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.amount = amount;
     }
 
 }
-

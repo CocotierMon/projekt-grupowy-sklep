@@ -27,7 +27,7 @@ public class User {
     private Long apartmentNumber;
     private Cart cart;
     private List<Order> orders;
-    private List<Invoices> invoice;
+    private List<Invoice> invoice;
 
     @Id
     @NotNull
@@ -53,9 +53,9 @@ public class User {
     @OneToMany(targetEntity = Order.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() { return orders; }
 
-    @OneToMany(targetEntity = Invoices.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Column(name = "INVOICES")
-    public List<Invoices> getInvoice() { return invoice; }
+    public List<Invoice> getInvoice() { return invoice; }
 
     @Column(name = "POSTCODE")
     public String getPostcode() { return postcode; }

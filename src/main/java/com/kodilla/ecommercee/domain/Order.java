@@ -19,22 +19,22 @@ import java.util.List;
 @Entity(name = "ORDERS")
 public class Order {
 
-    private User user;
     private Long id;
-    private LocalDate fulfillment;
-    private LocalDate date_of_order_acceptance;
     private LocalDate date_of_order;
-    private Delivery delivery;
+    private LocalDate date_of_order_acceptance;
+    private LocalDate fulfillment;
     private Cart cart;
-    private List<Product> productList = new ArrayList<>();
-    private Invoices invoice;
-    private BigDecimal total_sum_of_order;
-    private BigDecimal sum;
+    private Delivery delivery;
+    private Invoice invoice;
+    private List<Product> products = new ArrayList<>();
+    private BigDecimal sum = new BigDecimal(0);
+    private BigDecimal total_sum_of_order = new BigDecimal(0);
+    private User user;
 
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true)
     public Long getId() { return id; }
 
     @Column(name = "DATE_OF_ORDER")
@@ -59,13 +59,14 @@ public class Order {
     public User getUser() { return user; }
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "JOIN_PRODUCTS_FROM_CARTS",
-            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRODUCTS_ID", referencedColumnName = "ID")})
-    public List<Product> getProductList() { return productList; }
+    @JoinTable(name = "JOIN_ORDER_PRODUCTS",
+            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
+    public List<Product> getProducts() { return products; }
 
-    @Transient
-    public Invoices getInvoice() { return invoice; }
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "INVOICE_ID")
+    public Invoice getInvoice() { return invoice; }
 
     @Column(name = "TOTAL_SUM_OF_ORDER")
     public BigDecimal getTotal_sum_of_order() { return total_sum_of_order; }
@@ -76,7 +77,8 @@ public class Order {
     public Order(Cart cart, Delivery delivery, User user) {
         this.date_of_order = LocalDate.now();
         this.cart = cart;
-        this.productList = cart.getProducts();
+        this.delivery = delivery;
+        this.products = cart.getProducts();
         this.sum = cart.getSum();
         this.total_sum_of_order = cart.getSum().add(delivery.getValue());
         this.user = user;

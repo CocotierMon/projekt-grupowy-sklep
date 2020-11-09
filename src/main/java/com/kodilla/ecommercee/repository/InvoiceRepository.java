@@ -1,26 +1,26 @@
 package com.kodilla.ecommercee.repository;
 
-import com.kodilla.ecommercee.domain.Invoices;
+import com.kodilla.ecommercee.domain.Invoice;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface InvoicesRepository extends CrudRepository<Invoices, Long> {
+public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 
     @Override
-    Invoices save(Invoices invoice);
+    Invoice save(Invoice invoice);
 
     @Override
-    Optional<Invoices> findById(Long id);
+    Optional<Invoice> findById(Long id);
 
     @Override
     boolean existsById(Long id);
 
     @Override
-    Iterable<Invoices> findAll();
+    Iterable<Invoice> findAll();
 
     @Override
-    Iterable<Invoices> findAllById(Iterable<Long> ids);
+    Iterable<Invoice> findAllById(Iterable<Long> ids);
 
     @Override
     long count();

@@ -48,6 +48,7 @@ public class Cart {
             for(int i=0; i<amount; i++){
                 products.add(product);
                 sum = sum.add(product.getPrice());
+                product.setAmount(amount);
             }
         }
     }

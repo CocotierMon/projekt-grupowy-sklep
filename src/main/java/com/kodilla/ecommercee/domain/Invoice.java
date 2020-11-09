@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "INVOICES")
-public class Invoices {
+public class Invoice {
 
     private Long id;
     private User user;
@@ -29,12 +29,11 @@ public class Invoices {
     @JoinColumn(name = "USERS")
     public User getUser() { return user; }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     public Order getOrder() { return order; }
 
-    public Invoices(User user, Order order) {
+    public Invoice(User user, Order order) {
         this.user = user;
         this.order = order;
     }
-
 }
