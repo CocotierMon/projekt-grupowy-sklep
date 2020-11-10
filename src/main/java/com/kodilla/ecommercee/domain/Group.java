@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "ADM_GROUP")
+@Entity(name = "GROUPS_ALL")
 public class Group {
 
     private Long id;
@@ -37,9 +37,20 @@ public class Group {
     @OneToMany(
             targetEntity = Product.class,
             mappedBy= "groupId",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.MERGE,
             fetch = FetchType.LAZY
     )
     public List<Product> getProductsList() { return productsList; }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public void setProductsList(List<Product> productsList) {
+        this.productsList = productsList;
+    }
 }

@@ -23,8 +23,8 @@ public class User {
     private String postcode;
     private String town;
     private String street;
-    private Long houseNumber;
-    private Long apartmentNumber;
+    private int houseNumber;
+    private int apartmentNumber;
     private Cart cart;
     private List<Order> orders;
     private List<Invoice> invoice;
@@ -46,14 +46,14 @@ public class User {
     @Column(name = "USER_KEY")
     public int getUserKey() { return userKey; }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "CART", referencedColumnName = "ID")
     public Cart getCart(){ return cart; }
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     public List<Order> getOrders() { return orders; }
 
-    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @Column(name = "INVOICES")
     public List<Invoice> getInvoice() { return invoice; }
 
@@ -67,16 +67,10 @@ public class User {
     public String getStreet() { return street; }
 
     @Column(name = "HOUSE_NUMBER")
-    public Long getHouseNumber() { return houseNumber; }
+    public int getHouseNumber() { return houseNumber; }
 
     @Column(name = "APARTMENT_NUMBER")
-    public Long getApartmentNumber() { return apartmentNumber; }
-
-    public User(String username, int status, int userKey) {
-        this.username = username;
-        this.status = status;
-        this.userKey = userKey;
-    }
+    public int getApartmentNumber() { return apartmentNumber; }
 
     public User(String username) {
         this.username = username;

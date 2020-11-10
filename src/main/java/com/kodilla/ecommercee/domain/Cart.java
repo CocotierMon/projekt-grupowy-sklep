@@ -22,7 +22,7 @@ public class Cart {
     private User user;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "ID", unique = true)
     public Long getId() { return id; }
@@ -30,16 +30,16 @@ public class Cart {
     @Column(name="SUM")
     public BigDecimal getSum() { return sum; }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "JOIN_CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "CARD_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
     public List<Product> getProducts() { return products; }
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, mappedBy = "cart", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     public List<Order> getOrders() { return orders; }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.MERGE, fetch =FetchType.EAGER)
     @JoinColumn(name="USER_ID")
     public User getUser() { return user; }
 
@@ -49,6 +49,7 @@ public class Cart {
                 products.add(product);
                 sum = sum.add(product.getPrice());
                 product.setAmount(amount);
+                product.setSum(product.getPrice().multiply(BigDecimal.valueOf(amount)));
             }
         }
     }

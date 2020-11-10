@@ -26,6 +26,7 @@ public class Product {
     private List<Order> orders = new ArrayList<>();
     private List<Cart> carts = new ArrayList<>();
     private int amount;
+    private BigDecimal sum;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,24 +46,28 @@ public class Product {
     @NotNull
     public BigDecimal getPrice() { return price; }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "GROUP_ID")
     public Group getGroupId() { return groupId; }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "products")
     public List<Cart> getCarts() { return carts; }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "products")
     public List<Order> getOrders() { return orders; }
 
     @Column(name = "AMOUNT")
     public int getAmount() { return amount; }
+
+    @Column(name = "TOTAL_VALUE_OF_PRODUCT")
+    public BigDecimal getSum() { return sum; }
 
     public Product(String name, String description, BigDecimal price, int amount) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.amount = amount;
+        this.sum = getSum();
     }
 
 }
