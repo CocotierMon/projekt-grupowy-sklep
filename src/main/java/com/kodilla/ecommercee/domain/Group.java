@@ -12,17 +12,29 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Entity(name = "GROUPS")
+@Entity(name = "GROUPS_ALL")
 public class Group {
+
+    private Long id;
+    private String groupName;
+    private List<Product> productsList = new ArrayList<>();
+
+    public Group(String groupName) {
+        this.groupName = groupName;
+    }
 
     @Id
     @GeneratedValue
     @NotNull
     @Column(name = "GROUP_ID", unique = true)
-    private Long id;
+    public Long getId() {
+        return id;
+    }
 
     @Column(name = "GROUP_NAME")
-    private String groupName;
+    public String getGroupName() {
+        return groupName;
+    }
 
     @OneToMany(
             targetEntity = Product.class,
@@ -30,11 +42,16 @@ public class Group {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    public List<Product> getProductsList() {
+        return productsList;
+    }
 
-    private List<Product> productsList = new ArrayList<>();
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Group(String groupName) {
-        this.groupName=groupName;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public void setProductsList(List<Product> productsList) {
