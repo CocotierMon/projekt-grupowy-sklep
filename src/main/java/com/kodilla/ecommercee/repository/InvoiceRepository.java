@@ -30,4 +30,5 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 
     @Override
     void deleteAll();
+
 }
