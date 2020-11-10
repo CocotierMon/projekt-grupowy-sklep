@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @Getter
@@ -17,6 +18,7 @@ public class Order {
 
     private Long id;
     private Cart cart;
+    private List<Product> products;
 
     @Id
     @NotNull
@@ -27,5 +29,11 @@ public class Order {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CART_ID")
     public Cart getCart() {return cart;}
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "JOIN_ORDER_PRODUCTS",
+            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
+    public List<Product> getProducts() { return products; }
 
 }
