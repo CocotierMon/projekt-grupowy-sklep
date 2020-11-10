@@ -42,8 +42,6 @@ public class Group {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-
-
     public List<Product> getProductsList() {
         return productsList;
     }
