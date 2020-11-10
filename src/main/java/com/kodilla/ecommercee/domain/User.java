@@ -16,13 +16,13 @@ public class User {
 
     private Long id;
     private Long userKey;
-    private Long status;
+    private Integer status;
     private String username;
     private String postcode;
     private String town;
     private String street;
-    private Long houseNumber;
-    private Long apartmentNumber;
+    private Integer houseNumber;
+    private Integer apartmentNumber;
     private Cart cart;
     private List<Order> orders = new ArrayList<>();
     private List<Invoice> invoices = new ArrayList<>();
@@ -56,7 +56,7 @@ public class User {
     }
 
     @Column(name = "STATUS")
-    public Long getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
@@ -86,12 +86,12 @@ public class User {
     }
 
     @Column(name = "HOUSE_NUMBER")
-    public Long getHouseNumber() {
+    public Integer getHouseNumber() {
         return houseNumber;
     }
 
     @Column(name = "APARTMENT_NUMBER")
-    public Long getApartmentNumber() {
+    public Integer getApartmentNumber() {
         return apartmentNumber;
     }
 }
