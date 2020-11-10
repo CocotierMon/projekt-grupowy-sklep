@@ -19,22 +19,37 @@ public class Order {
     private Long id;
     private Cart cart;
     private List<Product> products;
+    private User user;
 
     @Id
     @NotNull
     @GeneratedValue
     @Column(name = "ID", unique = true)
-    public Long getId(){return id;};
+    public Long getId() {
+        return id;
+    }
+
+    ;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID")
+    public User getUser() {
+        return user;
+    }
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CART_ID")
-    public Cart getCart() {return cart;}
+    public Cart getCart() {
+        return cart;
+    }
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "JOIN_ORDER_PRODUCTS",
             joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
-    public List<Product> getProducts() { return products; }
+    public List<Product> getProducts() {
+        return products;
+    }
 
 }
 
