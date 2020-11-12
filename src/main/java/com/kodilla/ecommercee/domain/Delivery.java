@@ -1,12 +1,15 @@
 package com.kodilla.ecommercee.domain;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,12 +47,15 @@ public class Delivery {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
+
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {
         return order;
     }
 
+
     public void setOrder(Order order) {
         this.order = order;
     }
+
 }

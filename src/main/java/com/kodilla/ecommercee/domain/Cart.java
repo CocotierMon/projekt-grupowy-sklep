@@ -1,10 +1,12 @@
 package com.kodilla.ecommercee.domain;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -13,6 +15,7 @@ import lombok.Setter;
 @Entity
 @Table(name="CARTS")
 public class Cart {
+
     private Long id;
     private BigDecimal sum = new BigDecimal(0);
     private List<Product> products = new ArrayList<>();
@@ -20,12 +23,15 @@ public class Cart {
     private User user;
 
     @Id
+
     @GeneratedValue
     @NotNull
+
     @Column(name = "ID", unique = true)
     public Long getId() {
         return id;
     }
+
 
     @Column(name="SUM")
     public BigDecimal getSum() {
@@ -35,10 +41,12 @@ public class Cart {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "JOIN_CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "CARD_ID", referencedColumnName = "ID")},
+
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
     public List<Product> getProducts() {
         return products;
     }
+
 
     @OneToMany(targetEntity = Order.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() {
@@ -59,5 +67,6 @@ public class Cart {
             }
         }
     }
+
 }
 

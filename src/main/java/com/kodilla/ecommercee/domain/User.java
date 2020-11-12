@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @NoArgsConstructor
 @Setter
 @Entity
@@ -47,9 +48,11 @@ public class User {
         return invoices;
     }
 
+
     @Id
     @NotNull
     @GeneratedValue
+
     @Column(name = "ID")
     public Long getId() {
         return id;
@@ -93,5 +96,6 @@ public class User {
     @Column(name = "APARTMENT_NUMBER")
     public Integer getApartmentNumber() {
         return apartmentNumber;
+
     }
 }

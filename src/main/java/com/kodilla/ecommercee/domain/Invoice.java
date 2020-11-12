@@ -1,18 +1,22 @@
 package com.kodilla.ecommercee.domain;
 
+
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+
 @NoArgsConstructor
 @Setter
+
 @Entity
 @Table(name = "INVOICES")
 public class Invoice {
 
     private Long id;
+
     private Cart cart;
     private double sum;
     private User user;
@@ -21,9 +25,11 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "ID")
+
     public Long getId() {
         return id;
     }
+
 
     @Column(name = "SUM")
     public double getSum() {
@@ -52,3 +58,4 @@ public class Invoice {
         this.user = user;
     }
 }
+
