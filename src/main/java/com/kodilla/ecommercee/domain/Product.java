@@ -46,14 +46,14 @@ public class Product {
     @NotNull
     public BigDecimal getPrice() { return price; }
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "GROUP_ID")
     public Group getGroupId() { return groupId; }
 
-    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "products")
+    @ManyToMany(mappedBy = "products")
     public List<Cart> getCarts() { return carts; }
 
-    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "products")
+    @ManyToMany(mappedBy = "products")
     public List<Order> getOrders() { return orders; }
 
     @Column(name = "AMOUNT")

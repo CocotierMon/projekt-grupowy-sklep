@@ -30,16 +30,16 @@ public class Cart {
     @Column(name="SUM")
     public BigDecimal getSum() { return sum; }
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany
     @JoinTable(name = "JOIN_CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "CARD_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
     public List<Product> getProducts() { return products; }
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "cart", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, mappedBy = "cart", fetch = FetchType.LAZY)
     public List<Order> getOrders() { return orders; }
 
-    @OneToOne(cascade = CascadeType.MERGE, fetch =FetchType.EAGER)
+    @OneToOne(fetch =FetchType.EAGER)
     @JoinColumn(name="USER_ID")
     public User getUser() { return user; }
 

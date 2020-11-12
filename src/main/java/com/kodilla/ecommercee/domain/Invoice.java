@@ -25,11 +25,11 @@ public class Invoice {
     @Column(name = "ID")
     public Long getId() { return id; }
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "USERS")
     public User getUser() { return user; }
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     public Order getOrder() { return order; }
 
     public Invoice(User user, Order order) {

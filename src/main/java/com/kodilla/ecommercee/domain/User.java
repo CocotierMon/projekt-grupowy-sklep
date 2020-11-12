@@ -46,14 +46,14 @@ public class User {
     @Column(name = "USER_KEY")
     public int getUserKey() { return userKey; }
 
-    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CART", referencedColumnName = "ID")
     public Cart getCart(){ return cart; }
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.LAZY)
     public List<Order> getOrders() { return orders; }
 
-    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", fetch = FetchType.LAZY)
     @Column(name = "INVOICES")
     public List<Invoice> getInvoice() { return invoice; }
 
