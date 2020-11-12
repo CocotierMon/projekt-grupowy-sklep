@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import lombok.Getter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
