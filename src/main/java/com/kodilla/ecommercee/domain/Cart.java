@@ -1,9 +1,5 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,11 +7,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Setter
 @NoArgsConstructor
+@Setter
 @Entity
-@Table(name = "CARTS")
+@Table(name="CARTS")
 public class Cart {
 
     private Long id;
@@ -25,30 +23,50 @@ public class Cart {
     private User user;
 
     @Id
-    @NotNull
+
     @GeneratedValue
+    @NotNull
+
     @Column(name = "ID", unique = true)
     public Long getId() {
         return id;
     }
-    @Column(name = "SUM")
+
+
+    @Column(name="SUM")
     public BigDecimal getSum() {
         return sum;
     }
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "JOIN_CART_PRODUCT",
-            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")},
+            joinColumns = {@JoinColumn(name = "CARD_ID", referencedColumnName = "ID")},
+
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
     public List<Product> getProducts() {
         return products;
     }
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Order.class, mappedBy = "cart")
+
+
+    @OneToMany(targetEntity = Order.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrders() {
         return orders;
     }
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
+    @JoinColumn(name="USER_ID")
     public User getUser() {
         return user;
     }
+
+    public void addProduct(Product product, int amount){
+        if(amount>0){
+            for(int i=0; i<amount; i++){
+                products.add(product);
+                sum = sum.add(product.getPrice());
+            }
+        }
+    }
+
 }
 

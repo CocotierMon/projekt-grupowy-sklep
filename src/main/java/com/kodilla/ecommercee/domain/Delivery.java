@@ -1,37 +1,61 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AccessLevel;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Setter
+
+@AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "DELIVERYS")
+@Getter
+@Entity(name = "DELIVERIES")
 public class Delivery {
 
     private Long id;
-    private BigDecimal value = new BigDecimal(0);
+    private BigDecimal value;
     private Order order;
+
+    public Delivery(BigDecimal value) {
+        this.value = value;
+    }
+
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "ID", unique = true)
+    @Column(name = "DELIVERY_ID")
     public Long getId() {
         return id;
     }
-    @Column(name = "COST_OF_DELIVERY")
+
+    @Column(name = "DELIVERY_VALUE")
     public BigDecimal getValue() {
         return value;
     }
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
+
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {
         return order;
     }
+
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
 }

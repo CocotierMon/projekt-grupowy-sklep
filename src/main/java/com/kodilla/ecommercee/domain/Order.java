@@ -1,14 +1,18 @@
 package com.kodilla.ecommercee.domain;
 
+
+
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 @Setter
@@ -18,6 +22,7 @@ import java.util.List;
 public class Order {
 
     private Long id;
+
     private LocalDate date_of_order;
     private LocalDate date_of_order_acceptance;
     private LocalDate fulfillment;
@@ -27,6 +32,7 @@ public class Order {
     private List<Product> products = new ArrayList<>();
     private BigDecimal sum = new BigDecimal(0);
     private BigDecimal total_sum_of_order = new BigDecimal(0);
+
     private User user;
 
     @Id
@@ -36,6 +42,7 @@ public class Order {
     public Long getId() {
         return id;
     }
+
     @Column(name = "DATE_OF_ORDER")
     public LocalDate getDate_of_order() {
         return date_of_order;
@@ -47,6 +54,7 @@ public class Order {
     @Column(name = "DATE_OF_ORDER_FULFILLMENT")
     public LocalDate getFulfillment() {
         return fulfillment;
+
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -54,6 +62,7 @@ public class Order {
     public Cart getCart() {
         return cart;
     }
+
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "DELIVERY_ID")
@@ -71,9 +80,11 @@ public class Order {
             joinColumns = { @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = { @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
     )
+
     public List<Product> getProducts() {
         return products;
     }
+
 
     @Column(name="SUM")
     public BigDecimal getSum() {
@@ -99,3 +110,4 @@ public class Order {
         this.total_sum_of_order = cart.getSum().add(delivery.getValue());
     }
 }
+

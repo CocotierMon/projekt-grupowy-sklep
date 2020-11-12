@@ -1,36 +1,61 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
+
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 
-@Setter
 @NoArgsConstructor
+@Setter
+
 @Entity
 @Table(name = "INVOICES")
 public class Invoice {
 
     private Long id;
-    private Order order;
+
+    private Cart cart;
+    private double sum;
+    private User user;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    @GeneratedValue
-    @Column(name = "ID", unique = true)
+    @Column(name = "ID")
+
     public Long getId() {
         return id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ORDER_ID")
-    public Order getOrder() {
-        return order;
+
+    @Column(name = "SUM")
+    public double getSum() {
+        return sum;
+    }
+
+    public void setSum(double sum) {
+        this.sum = sum;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "CART", referencedColumnName = "ID")
+    public Cart getCart() {
+        return cart;
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID")
+    public User getUser() {
+        return user;
+    }
+
+    public Invoice(Cart cart, double sum, User user) {
+        this.cart = cart;
+        this.sum = sum;
+        this.user = user;
     }
 }
+
