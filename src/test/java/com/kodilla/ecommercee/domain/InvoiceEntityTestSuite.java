@@ -54,14 +54,20 @@ public class InvoiceEntityTestSuite {
         products2.add(product4);
 
         Cart cart1 = new Cart();
+        List<Cart> carts1 = new ArrayList<>();
         cart1.setProducts(products1);
         product1.getCarts().add(cart1);
+        product1.setCarts(carts1);
         product2.getCarts().add(cart1);
+        product2.setCarts(carts1);
         cartRepository.save(cart1);
         Cart cart2 = new Cart();
+        List<Cart> carts2 = new ArrayList<>();
         cart2.setProducts(products2);
         product3.getCarts().add(cart2);
+        product3.setCarts(carts2);
         product4.getCarts().add(cart2);
+        product4.setCarts(carts2);
         cartRepository.save(cart2);
 
         Delivery delivery1 = new Delivery(new BigDecimal(5));
@@ -70,14 +76,30 @@ public class InvoiceEntityTestSuite {
         deliveryRepository.save(delivery2);
 
         Order order1 = new Order(cart1, delivery1, user1);
+        List<Order> orders1 = new ArrayList<>();
+        orders1.add(order1);
+        cart1.setOrders(orders1);
+        delivery1.setOrder(order1);
+        user1.setOrders(orders1);
         orderRepository.save(order1);
         Order order2 = new Order(cart2, delivery2, user2);
+        List<Order> orders2 = new ArrayList<>();
+        orders2.add(order2);
+        cart2.setOrders(orders2);
+        delivery2.setOrder(order2);
+        user2.setOrders(orders2);
         orderRepository.save(order2);
 
         //save, findById, existsById
         Invoice invoice1 = new Invoice(user1, order1);
+        List<Invoice> invoices1 = new ArrayList<>();
+        user1.setInvoice(invoices1);
+        order1.setInvoice(invoice1);
         invoiceRepository.save(invoice1);
         Invoice invoice2 = new Invoice(user2, order2);
+        List<Invoice> invoices2 = new ArrayList<>();
+        order2.setInvoice(invoice2);
+        user1.setInvoice(invoices2);
         invoiceRepository.save(invoice2);
 
         Long id1 = invoice1.getId();
@@ -124,19 +146,32 @@ public class InvoiceEntityTestSuite {
        products.add(product1);
 
        Cart cart = new Cart();
+       List<Cart> carts = new ArrayList<>();
+       carts.add(cart);
        product.getCarts().add(cart);
+       product.setCarts(carts);
        product1.getCarts().add(cart);
+       product1.setCarts(carts);
        cart.setProducts(products);
        cart.addProduct(product, 3);
        cart.addProduct(product1, 2);
        cartRepository.save(cart);
 
        Order order = new Order(cart, delivery, user);
+       List<Order> orders = new ArrayList<>();
+       orders.add(order);
+       cart.setOrders(orders);
+       delivery.setOrder(order);
+       user.setOrders(orders);
        orderRepository.save(order);
 
        Invoice invoice = new Invoice();
+       List<Invoice> invoices = new ArrayList<>();
+       invoices.add(invoice);
        invoice.setOrder(order);
+       order.setInvoice(invoice);
        invoice.setUser(user);
+       user.setInvoice(invoices);
        invoiceRepository.save(invoice);
 
        Assert.assertEquals("Adam", invoice.getUser().getUsername());
