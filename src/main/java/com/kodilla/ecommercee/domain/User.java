@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,8 +27,8 @@ public class User {
     private int houseNumber;
     private int apartmentNumber;
     private Cart cart;
-    private List<Order> orders;
-    private List<Invoice> invoice;
+    private List<Order> orders = new ArrayList<>();
+    private List<Invoice> invoice = new ArrayList<>();
 
     @Id
     @NotNull
