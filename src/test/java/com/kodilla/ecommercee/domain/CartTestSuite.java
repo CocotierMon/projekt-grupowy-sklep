@@ -30,7 +30,6 @@ public class CartTestSuite {
     @Autowired
     OrderRepository orderRepository;
 
-
     @Test
     public void testCartRepositorySave() {
 
@@ -55,7 +54,7 @@ public class CartTestSuite {
         Cart cart = new Cart();
         User user = new User();
         user.setUsername("Username");
-        user.setUserKey((long) 12345);
+        user.setUserKey(12345);
         user.setCart(cart);
         cart.setUser(user);
 
