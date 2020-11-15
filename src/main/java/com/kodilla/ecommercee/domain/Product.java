@@ -19,6 +19,8 @@ public class Product {
     private List<Cart> carts = new ArrayList<>();
     private List<Order> orders = new ArrayList<>();
     private BigDecimal price = new BigDecimal(0);
+    private String name;
+    private String description;
 
     @Id
     @NotNull
@@ -27,16 +29,24 @@ public class Product {
     public Long getId() {
         return id;
     }
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany( mappedBy = "products")
     public List<Cart> getCarts() {
         return carts;
     }
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany( mappedBy = "products")
     public List<Order> getOrders() {
         return orders;
     }
     @Column(name="PRICE")
     public BigDecimal getPrice() {
         return price;
+    }
+    @Column(name = "NAME")
+    public String getName() {
+        return name;
+    }
+    @Column(name="DESCRIPTION")
+    public String getDescription() {
+        return description;
     }
 }

@@ -19,6 +19,7 @@ public class Invoice {
 
     private Long id;
     private Order order;
+    private User user;
 
     @Id
     @NotNull
@@ -28,9 +29,14 @@ public class Invoice {
         return id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {
         return order;
+    }
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    public User getUser() {
+        return user;
     }
 }

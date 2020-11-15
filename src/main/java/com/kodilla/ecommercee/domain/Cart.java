@@ -35,20 +35,29 @@ public class Cart {
     public BigDecimal getSum() {
         return sum;
     }
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany//(cascade = {CascadeType.MERGE})
     @JoinTable(name = "JOIN_CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
     public List<Product> getProducts() {
         return products;
     }
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Order.class, mappedBy = "cart")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Order.class, mappedBy = "cart")
     public List<Order> getOrders() {
         return orders;
     }
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne( fetch = FetchType.EAGER)
+    @JoinColumn(name="USER_ID")
     public User getUser() {
         return user;
+    }
+    public void addProduct(Product product, int amount){
+        if(amount>0){
+            for(int i=0; i<amount; i++){
+                products.add(product);
+                sum = sum.add(product.getPrice());
+            }
+        }
     }
 }
 

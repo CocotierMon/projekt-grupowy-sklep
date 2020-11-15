@@ -18,20 +18,26 @@ public class Delivery {
     private Long id;
     private BigDecimal value = new BigDecimal(0);
     private Order order;
+
+    public Delivery(BigDecimal value) {
+        this.value = value;
+    }
+
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "ID", unique = true)
+    @Column(name = "DELIVERY_ID", unique = true)
     public Long getId() {
         return id;
     }
-    @Column(name = "COST_OF_DELIVERY")
+    @Column(name = "DELIVERY_VALUE")
     public BigDecimal getValue() {
         return value;
     }
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {
         return order;
     }
+
 }

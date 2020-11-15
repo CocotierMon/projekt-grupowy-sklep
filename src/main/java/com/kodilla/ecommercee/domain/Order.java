@@ -49,23 +49,23 @@ public class Order {
         return fulfillment;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "CART_ID")
     public Cart getCart() {
         return cart;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "DELIVERY_ID")
     public Delivery getDelivery() {
         return delivery;
     }
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="INVOICE_ID")
     public Invoice getInvoice() {
         return invoice;
     }
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "JOIN_ORDER_PRODUCT",
             joinColumns = { @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
@@ -84,11 +84,12 @@ public class Order {
         return total_sum_of_order;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
     }
+
     public Order(Cart cart, Delivery delivery, User user){
         this.date_of_order = LocalDate.now();
         this.cart = cart;
