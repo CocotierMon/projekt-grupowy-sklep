@@ -1,9 +1,7 @@
+
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.repository.CartRepository;
-import com.kodilla.ecommercee.repository.GroupRepository;
-import com.kodilla.ecommercee.repository.OrderRepository;
-import com.kodilla.ecommercee.repository.ProductRepository;
+import com.kodilla.ecommercee.repository.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,13 +15,19 @@ import java.math.BigDecimal;
 @SpringBootTest
 public class ProductEntityTestSuite {
     @Autowired
-    private ProductRepository productRepository;
+    InvoiceRepository invoiceRepository;
     @Autowired
-    private CartRepository cartRepository;
+    ProductRepository productRepository;
     @Autowired
-    private GroupRepository groupRepository;
+    CartRepository cartRepository;
     @Autowired
-    private OrderRepository orderRepository;
+    OrderRepository orderRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    DeliveryRepository deliveryRepository;
+    @Autowired
+    GroupRepository groupRepository;
 
     private static final String GROUPNAME = "TEST GROUP";
 
@@ -35,8 +39,15 @@ public class ProductEntityTestSuite {
         //when
         productRepository.save(product);
         productRepository.save(product1);
+
+        Long id = product.getId();
+        Long id1 = product1.getId();
         //then
-        Assert.assertEquals(2, productRepository.count());
+        Assert.assertEquals(2,productRepository.count());
+        Assert.assertEquals(product.getName(),productRepository.findById(id).get().getName());
+        productRepository.deleteById(id1);
+        Assert.assertEquals(1,productRepository.count());
+
         //clean
         productRepository.deleteAll();
     }
@@ -55,11 +66,12 @@ public class ProductEntityTestSuite {
         groupRepository.save(group);
         //then
         Assert.assertEquals(2, group.getProductsList().size());
-        Assert.assertEquals(GROUPNAME,product.getGroupId().getGroupName());
-        Assert.assertEquals(GROUPNAME,product1.getGroupId().getGroupName());
+        Assert.assertEquals(GROUPNAME, product.getGroupId().getGroupName());
+        Assert.assertEquals(GROUPNAME, product1.getGroupId().getGroupName());
 
         //clean
         groupRepository.deleteAll();
+        productRepository.deleteAll();
     }
 
     @Test
@@ -79,11 +91,13 @@ public class ProductEntityTestSuite {
         Assert.assertEquals(3, cart.getProducts().size());
         Assert.assertFalse(cartRepository.findAll().isEmpty());
         //clean
+        orderRepository.deleteAll();
         cartRepository.deleteAll();
         productRepository.deleteAll();
     }
+
     @Test
-    public void TestProductAddToOrder(){
+    public void TestProductAddToOrder() {
         //given
         Order order = new Order();
         Product product = new Product("kubek", "zwykły kubek", new BigDecimal(30), 3);
@@ -100,6 +114,7 @@ public class ProductEntityTestSuite {
         Assert.assertFalse(orderRepository.findAll().isEmpty());
         //clean
         orderRepository.deleteAll();
+        cartRepository.deleteAll();
         productRepository.deleteAll();
     }
 }
