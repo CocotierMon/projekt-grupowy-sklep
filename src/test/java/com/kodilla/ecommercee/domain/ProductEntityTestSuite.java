@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.domain;
 
 import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.GroupRepository;
+import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,6 +22,8 @@ public class ProductEntityTestSuite {
     private CartRepository cartRepository;
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
     private static final String GROUPNAME = "TEST GROUP";
 
@@ -77,6 +80,26 @@ public class ProductEntityTestSuite {
         Assert.assertFalse(cartRepository.findAll().isEmpty());
         //clean
         cartRepository.deleteAll();
+        productRepository.deleteAll();
+    }
+    @Test
+    public void TestProductAddToOrder(){
+        //given
+        Order order = new Order();
+        Product product = new Product("kubek", "zwykły kubek", new BigDecimal(30), 3);
+        Product product1 = new Product("myszka", "zwykła myszka", new BigDecimal(50), 10);
+        //when
+        order.getProducts().add(product);
+        order.getProducts().add(product1);
+
+        productRepository.save(product);
+        productRepository.save(product1);
+        orderRepository.save(order);
+        //then
+        Assert.assertEquals(2, order.getProducts().size());
+        Assert.assertFalse(orderRepository.findAll().isEmpty());
+        //clean
+        orderRepository.deleteAll();
         productRepository.deleteAll();
     }
 }
