@@ -45,7 +45,9 @@ public class CartTestSuite {
         Assert.assertTrue(readCart.isPresent());
 
         //CleanUp
-        cartRepository.deleteAll();
+        try {
+            cartRepository.deleteById(id);
+        } catch (Exception e) {}
     }
 
     @Test
@@ -132,13 +134,12 @@ public class CartTestSuite {
         long orId= order1.getId();
 
         //Then
+        Assert.assertEquals(1, id1);
+        Assert.assertEquals(10, orId);
         try {
-            Assert.assertEquals(1, id1);
-            Assert.assertEquals(10, orId);
-        } finally {
-            cartRepository.deleteAll();
-            orderRepository.deleteAll();
-        }
+            cartRepository.deleteById(id1);
+            orderRepository.deleteById(orId);
+        } catch (Exception e) {}
     }
 }
 
