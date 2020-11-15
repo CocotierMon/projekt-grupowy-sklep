@@ -53,13 +53,15 @@ public class CartTestSuite {
         //Given
         Cart cart = new Cart();
         User user = new User();
+
+        cartRepository.save(cart);
         user.setUsername("Username");
         user.setUserKey(12345);
         user.setCart(cart);
         cart.setUser(user);
 
+
         //When
-        cartRepository.save(cart);
         long id = user.getCart().getId();
         long id1 = cart.getId();
 
@@ -68,7 +70,11 @@ public class CartTestSuite {
         Assert.assertNotEquals(0, id);
 
         //CleanUp
-        cartRepository.deleteById(id);
+        try {
+            cartRepository.deleteById(id);
+            cartRepository.deleteById(id1);
+
+        } catch (Exception e) {}
     }
 
     @Test
@@ -76,8 +82,13 @@ public class CartTestSuite {
         //Given
         Cart cart1 = new Cart();
         Cart cart2 = new Cart();
+
         Product product1 = new Product("kurtka zimowa", "Pellentesque tempus", new BigDecimal(100), 1);
         Product product2 = new Product("płaszcz", "Pellentesque tempus", new BigDecimal(150), 1);
+        cart1.setId((long) 1);
+        cart2.setId((long) 2);
+        cartRepository.save(cart1);
+        cartRepository.save(cart2);
 
         cart1.getProducts().add(product1);
         cart1.getProducts().add(product2);
@@ -87,11 +98,8 @@ public class CartTestSuite {
         product2.getCarts().add(cart1);
         product2.getCarts().add(cart2);
 
-
         //When
-        cartRepository.save(cart1);
         long id1 = cart1.getId();
-        cartRepository.save(cart2);
         long id2 = cart2.getId();
 
         //Then
@@ -111,23 +119,23 @@ public class CartTestSuite {
         //Given
         Cart cart1= new Cart();
         Order order1 = new Order();
+
+        cartRepository.save(cart1);
+        orderRepository.save(order1);
         cart1.setId((long) 1);
         order1.setId((long) 10);
-
         cart1.getOrders().add(order1);
         order1.setCart(cart1);
 
         //When
-        cartRepository.save(cart1);
         long id1 = cart1.getId();
-        orderRepository.save(order1);
         long orId= order1.getId();
 
         //Then
         try {
             Assert.assertEquals(1, id1);
             Assert.assertEquals(10, orId);
-        }finally {
+        } finally {
             cartRepository.deleteAll();
             orderRepository.deleteAll();
         }
