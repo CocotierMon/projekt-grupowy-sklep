@@ -29,7 +29,7 @@ public class Delivery {
     @Column(name = "VALUE")
     public BigDecimal getValue() { return value; }
 
-    @OneToOne(fetch =FetchType.LAZY)
+    @OneToOne(fetch =FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() { return order; }
 
