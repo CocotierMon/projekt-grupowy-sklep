@@ -50,7 +50,7 @@ public class Order {
     @JoinColumn(name = "CART_ID")
     public Cart getCart() { return cart; }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DELIVERY_ID")
     public Delivery getDelivery() { return delivery; }
 
@@ -64,7 +64,7 @@ public class Order {
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
     public List<Product> getProducts() { return products; }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "INVOICE_ID")
     public Invoice getInvoice() { return invoice; }
 
