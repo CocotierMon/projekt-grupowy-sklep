@@ -19,6 +19,7 @@ import java.util.List;
 public class User {
 
     private Long id;
+
     private String username;
     private int status = 1;
     private Long userKey;
@@ -33,6 +34,7 @@ public class User {
     public Long getId() {
         return id;
     }
+
 
     @Column(name = "USERNAME")
     public String getUsername() {
@@ -50,20 +52,19 @@ public class User {
     }
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CART", referencedColumnName = "ID")
-    public Cart getCart() {
-        return cart;
-    }
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.LAZY)
-    public List<Order> getOrders() {
-        return orders;
-    }
+    @JoinColumn(name = "CART")
+    public Cart getCart(){ return cart; }
 
-    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    public List<Order> getOrders() { return orders; }
+
+
+    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @Column(name = "INVOICES")
     public List<Invoice> getInvoices() {
         return invoices;
     }
 
 }
+
