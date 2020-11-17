@@ -17,7 +17,7 @@ import java.util.List;
 public class UserDto {
     private Long id;
     private String username;
-    private int status;
+    private int status = 1;
     private Long userKey;
     private Cart cart;
     private List<OrderDto> orders = new ArrayList<>();

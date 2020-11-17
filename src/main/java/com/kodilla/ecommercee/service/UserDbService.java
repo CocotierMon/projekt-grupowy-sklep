@@ -4,9 +4,7 @@ import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class UserDbService {
@@ -40,8 +38,10 @@ public class UserDbService {
         return Optional.empty();
     }
 
+
     public Optional<Long> generateKey(final Long userId) {
         Optional<User> user = userRepository.findById(userId);
+
         if (user.isPresent()) {
             Long userKey = generator.nextLong();
             user.get().setUserKey(userKey);
@@ -50,4 +50,20 @@ public class UserDbService {
         }
         return Optional.empty();
     }
+
+    public void setTimer(final Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                user.get().setUserKey(null);
+                user.get().setStatus(0);
+                userRepository.save(user.get());
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(timerTask, 3600000);
+    };
 }
