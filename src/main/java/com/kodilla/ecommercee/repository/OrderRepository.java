@@ -27,6 +27,6 @@ public interface OrderRepository extends CrudRepository<Order,Long> {
     @Override
     long count();
 
-
+    List<Order> findByUser(User user);
 }
 
