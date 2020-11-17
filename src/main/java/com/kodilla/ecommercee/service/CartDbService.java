@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.repository.CartRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class CartDbService {
-
+    @Autowired
     private CartRepository cartRepository;
 
     public List<Cart> getAllGroups() {

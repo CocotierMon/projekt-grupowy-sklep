@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.Delivery;
 import com.kodilla.ecommercee.repository.DeliveryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class DeliveryDbService {
-
+    @Autowired
     private DeliveryRepository deliveryRepository;
 
     public List<Delivery> getAllDelivery() {

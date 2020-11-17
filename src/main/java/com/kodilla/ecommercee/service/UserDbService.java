@@ -2,12 +2,14 @@ package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class UserDbService {
+    @Autowired
     UserRepository userRepository;
 
     Random generator = new Random(500000L);
