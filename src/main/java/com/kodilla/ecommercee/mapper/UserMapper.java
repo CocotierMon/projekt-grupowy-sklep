@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.dto.UserDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,8 +11,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
-    OrderMapper orderMapper;
-    InvoiceMapper invoiceMapper;
+    private OrderMapper orderMapper;
+    private InvoiceMapper invoiceMapper;
+
+    @Autowired
+    public UserMapper(OrderMapper orderMapper, InvoiceMapper invoiceMapper) {
+        this.orderMapper = orderMapper;
+        this.invoiceMapper = invoiceMapper;
+    }
 
     public User mapToUser(UserDto userDto) {
         return new User(userDto.getId(),
