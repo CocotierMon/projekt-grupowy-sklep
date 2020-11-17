@@ -43,7 +43,6 @@ public class CartTestSuite {
         long id = cart.getId();
         Optional<Cart> readCart = cartRepository.findById(id);
         Assert.assertTrue(readCart.isPresent());
-
         //CleanUp
         try {
             cartRepository.deleteById(id);

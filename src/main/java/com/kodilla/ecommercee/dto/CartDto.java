@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,7 +18,7 @@ import java.util.List;
 public class CartDto {
     private Long id;
     private BigDecimal sum;
-    private List<ProductDto> products;
-    private List<OrderDto> orders;
+    private List<ProductDto> productsList = new ArrayList<>();
+    private List<OrderDto> orders = new ArrayList<>();
     private User user;
 }
