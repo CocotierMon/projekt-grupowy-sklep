@@ -54,20 +54,16 @@ public class InvoiceEntityTestSuite {
         products2.add(product4);
 
         Cart cart1 = new Cart();
-        List<Cart> carts1 = new ArrayList<>();
+
         cart1.setProducts(products1);
-        product1.getCarts().add(cart1);
-        product1.setCarts(carts1);
-        product2.getCarts().add(cart1);
-        product2.setCarts(carts1);
+        product1.setCart(cart1);
+        product2.setCart(cart1);
         cartRepository.save(cart1);
         Cart cart2 = new Cart();
-        List<Cart> carts2 = new ArrayList<>();
+
         cart2.setProducts(products2);
-        product3.getCarts().add(cart2);
-        product3.setCarts(carts2);
-        product4.getCarts().add(cart2);
-        product4.setCarts(carts2);
+        product3.setCart(cart2);
+        product4.setCart(cart2);
         cartRepository.save(cart2);
 
         Delivery delivery1 = new Delivery(new BigDecimal(5));
@@ -146,12 +142,10 @@ public class InvoiceEntityTestSuite {
         products.add(product1);
 
         Cart cart = new Cart();
-        List<Cart> carts = new ArrayList<>();
-        carts.add(cart);
-        product.getCarts().add(cart);
-        product.setCarts(carts);
-        product1.getCarts().add(cart);
-        product1.setCarts(carts);
+        product.setCart(cart);
+        product.setCart(cart);
+        product1.setCart(cart);
+        product1.setCart(cart);
         cart.setProducts(products);
         cart.addProduct(product, 3);
         cart.addProduct(product1, 2);

@@ -74,10 +74,11 @@ public class Order {
         return user;
     }
 
-    @ManyToMany
-    @JoinTable(name = "JOIN_ORDER_PRODUCTS",
-            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
+    @OneToMany(
+            targetEntity = Product.class,
+            mappedBy = "order",
+            fetch = FetchType.LAZY
+    )
     public List<Product> getProducts() {
         return products;
     }

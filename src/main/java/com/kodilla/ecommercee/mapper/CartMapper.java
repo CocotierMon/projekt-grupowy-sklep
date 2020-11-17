@@ -2,7 +2,6 @@ package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.dto.CartDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,14 +9,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class CartMapper {
-    private ProductMapper productMapper;
-    private OrderMapper orderMapper;
-
-    @Autowired
-    public CartMapper(OrderMapper orderMapper, ProductMapper productMapper) {
-        this.orderMapper = orderMapper;
-        this.productMapper = productMapper;
-    }
+    ProductMapper productMapper;
+    OrderMapper orderMapper;
 
     public Cart mapToCart(final CartDto cartDto) {
         return new Cart(cartDto.getId(),

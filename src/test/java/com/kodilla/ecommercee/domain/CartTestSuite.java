@@ -98,9 +98,9 @@ public class CartTestSuite {
         cart1.getProducts().add(product2);
         cart2.getProducts().add(product2);
 
-        product1.getCarts().add(cart1);
-        product2.getCarts().add(cart1);
-        product2.getCarts().add(cart2);
+        product1.setCart(cart1);
+        product2.setCart(cart1);
+        product2.setCart(cart2);
 
         //When
         long id1 = cart1.getId();

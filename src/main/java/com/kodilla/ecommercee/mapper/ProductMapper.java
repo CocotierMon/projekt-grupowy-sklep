@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class ProductMapper {
-    OrderMapper orderMapper;
-    CartMapper cartMapper;
 
     public Product mapToProduct(final ProductDto productDto) {
         return new Product(productDto.getId(),
@@ -18,8 +16,8 @@ public class ProductMapper {
                 productDto.getDescription(),
                 productDto.getPrice(),
                 productDto.getGroupId(),
-                orderMapper.mapToOrderList(productDto.getOrders()),
-                cartMapper.mapToCartList(productDto.getCarts()),
+                productDto.getOrder(),
+                productDto.getCart(),
                 productDto.getAmount(),
                 productDto.getSum());
     }
@@ -30,8 +28,8 @@ public class ProductMapper {
                 product.getDescription(),
                 product.getPrice(),
                 product.getGroupId(),
-                orderMapper.mapToOrderDtoList(product.getOrders()),
-                cartMapper.mapToCartDtoList(product.getCarts()),
+                product.getOrder(),
+                product.getCart(),
                 product.getAmount(),
                 product.getSum());
     }
@@ -43,8 +41,8 @@ public class ProductMapper {
                         p.getDescription(),
                         p.getPrice(),
                         p.getGroupId(),
-                        orderMapper.mapToOrderDtoList(p.getOrders()),
-                        cartMapper.mapToCartDtoList(p.getCarts()),
+                        p.getOrder(),
+                        p.getCart(),
                         p.getAmount(),
                         p.getSum()))
                 .collect(Collectors.toList());
@@ -57,8 +55,8 @@ public class ProductMapper {
                         p.getDescription(),
                         p.getPrice(),
                         p.getGroupId(),
-                        orderMapper.mapToOrderList(p.getOrders()),
-                        cartMapper.mapToCartList(p.getCarts()),
+                        p.getOrder(),
+                        p.getCart(),
                         p.getAmount(),
                         p.getSum()))
                 .collect(Collectors.toList());

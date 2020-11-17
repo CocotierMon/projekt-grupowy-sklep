@@ -36,10 +36,11 @@ public class Cart {
         return sum;
     }
 
-    @ManyToMany
-    @JoinTable(name = "JOIN_CART_PRODUCT",
-            joinColumns = {@JoinColumn(name = "CARD_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
+    @OneToMany(
+            targetEntity = Product.class,
+            mappedBy = "cart",
+            fetch = FetchType.LAZY
+    )
     public List<Product> getProducts() {
         return products;
     }

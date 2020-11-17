@@ -8,8 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Getter
@@ -24,9 +22,8 @@ public class Product {
     private String description;
     private BigDecimal price;
     private Group groupId;
-    private List<Order> orders = new ArrayList<>();
-
-    private List<Cart> carts = new ArrayList<>();
+    private Order order;
+    private Cart cart;
     private int amount;
     private BigDecimal sum;
 
@@ -64,14 +61,16 @@ public class Product {
         return groupId;
     }
 
-    @ManyToMany(mappedBy = "products")
-    public List<Cart> getCarts() {
-        return carts;
+    @ManyToOne
+    @JoinColumn(name = "CART_ID")
+    public Cart getCart() {
+        return cart;
     }
 
-    @ManyToMany(mappedBy = "products")
-    public List<Order> getOrders() {
-        return orders;
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID")
+    public Order getOrder() {
+        return order;
     }
 
     @Column(name = "AMOUNT")
