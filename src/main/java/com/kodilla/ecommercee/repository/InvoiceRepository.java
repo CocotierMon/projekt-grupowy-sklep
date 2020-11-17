@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.repository;
 
 import com.kodilla.ecommercee.domain.Invoice;
-
+import com.kodilla.ecommercee.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
@@ -31,5 +31,5 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 
     @Override
     void deleteAll();
-
+    List<Invoice> findByUser(User user);
 }
