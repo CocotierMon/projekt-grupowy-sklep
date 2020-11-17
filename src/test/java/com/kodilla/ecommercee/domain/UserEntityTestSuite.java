@@ -154,7 +154,7 @@ public class UserEntityTestSuite {
 
         Invoice invoice1 = new Invoice();
 
-        user1.getInvoices().add(invoice1);
+        user1.getInvoice().add(invoice1);
         invoice1.setUser(user1);
 
         userRepository.save(user1);
