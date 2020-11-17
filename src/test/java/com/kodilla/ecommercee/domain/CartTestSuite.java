@@ -43,11 +43,11 @@ public class CartTestSuite {
         long id = cart.getId();
         Optional<Cart> readCart = cartRepository.findById(id);
         Assert.assertTrue(readCart.isPresent());
-
         //CleanUp
         try {
             cartRepository.deleteById(id);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     @Test
@@ -58,7 +58,7 @@ public class CartTestSuite {
 
         cartRepository.save(cart);
         user.setUsername("Username");
-        user.setUserKey(12345);
+        user.setUserKey(12345L);
         user.setCart(cart);
         cart.setUser(user);
 
@@ -76,7 +76,8 @@ public class CartTestSuite {
             cartRepository.deleteById(id);
             cartRepository.deleteById(id1);
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     @Test
@@ -96,9 +97,9 @@ public class CartTestSuite {
         cart1.getProducts().add(product2);
         cart2.getProducts().add(product2);
 
-        product1.getCarts().add(cart1);
-        product2.getCarts().add(cart1);
-        product2.getCarts().add(cart2);
+        product1.setCart(cart1);
+        product2.setCart(cart1);
+        product2.setCart(cart2);
 
         //When
         long id1 = cart1.getId();
@@ -113,13 +114,14 @@ public class CartTestSuite {
             cartRepository.deleteById(id1);
             cartRepository.deleteById(id2);
             productRepository.deleteAll();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     @Test
-    public void testRelationWithOrder(){
+    public void testRelationWithOrder() {
         //Given
-        Cart cart1= new Cart();
+        Cart cart1 = new Cart();
         Order order1 = new Order();
 
         cartRepository.save(cart1);
@@ -131,7 +133,7 @@ public class CartTestSuite {
 
         //When
         long id1 = cart1.getId();
-        long orId= order1.getId();
+        long orId = order1.getId();
 
         //Then
         Assert.assertEquals(1, id1);
@@ -139,7 +141,8 @@ public class CartTestSuite {
         try {
             cartRepository.deleteById(id1);
             orderRepository.deleteById(orId);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }
 

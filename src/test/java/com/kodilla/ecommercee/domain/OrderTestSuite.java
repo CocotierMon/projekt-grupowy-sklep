@@ -27,7 +27,7 @@ public class OrderTestSuite {
     ProductRepository productRepository;
 
     @Test
-    public void testOrderRepositoryCRUD(){
+    public void testOrderRepositoryCRUD() {
         //Given
         Order order = new Order();
 
@@ -47,10 +47,10 @@ public class OrderTestSuite {
     }
 
     @Test
-    public void testRelationWithUser(){
+    public void testRelationWithUser() {
         //Given
         Order order = new Order();
-        User userKarol = new User("Karol");
+        User userKarol = new User();
         userKarol.getOrders().add(order);
         order.setUser(userKarol);
         userRepository.save(userKarol);
@@ -116,12 +116,18 @@ public class OrderTestSuite {
         order3.getProducts().add(product1);
         order3.getProducts().add(product2);
 
-        product.getOrders().add(order1);
-        product1.getOrders().add(order1);
-        product1.getOrders().add(order3);
-        product2.getOrders().add(order2);
-        product2.getOrders().add(order3);
-        product3.getOrders().add(order2);
+        product.setOrder(order1);
+        product1.setOrder(order1);
+        product1.setOrder(order3);
+        product2.setOrder(order2);
+        product2.setOrder(order3);
+        product3.setOrder(order2);
+
+        orderRepository.save(order1);
+        long idOrder = order1.getId();
+        orderRepository.save(order2);
+        long idOrder2 = order2.getId();
+        orderRepository.save(order3);
 
         productRepository.save(product);
         long idProduct = product.getId();
@@ -130,11 +136,7 @@ public class OrderTestSuite {
         productRepository.save(product3);
 
         //When
-        orderRepository.save(order1);
-        long idOrder = order1.getId();
-        orderRepository.save(order2);
-        long idOrder2 = order2.getId();
-        orderRepository.save(order3);
+
         Product newProduct = productRepository.findById(idProduct).get();
         newProduct.setName("aaa");
         productRepository.save(newProduct);
@@ -146,8 +148,9 @@ public class OrderTestSuite {
         Assert.assertNotEquals(0, idOrder);
 
         //CleanUp
-        orderRepository.deleteAll();
         productRepository.deleteAll();
+        orderRepository.deleteAll();
+
         Assert.assertEquals(0, orderRepository.findAll().size());
     }
 

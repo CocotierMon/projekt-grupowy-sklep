@@ -1,29 +1,42 @@
 package com.kodilla.ecommercee;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.kodilla.ecommercee.dto.DeliveryDto;
+import com.kodilla.ecommercee.mapper.DeliveryMapper;
+import com.kodilla.ecommercee.service.DeliveryDbService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/delivery")
 public class DeliveryController {
 
-    @RequestMapping(method = RequestMethod.POST , value = "createDelivery")
-    public void createDelivery(){
+    private DeliveryDbService deliveryDbService;
+    private DeliveryMapper deliveryMapper;
+
+    @Autowired
+    public DeliveryController(DeliveryDbService deliveryDbService, DeliveryMapper deliveryMapper) {
+        this.deliveryDbService = deliveryDbService;
+        this.deliveryMapper = deliveryMapper;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getDelivery")
-    public String getDelivery() {
-        return "Delivery";
+    @RequestMapping(method = RequestMethod.POST, value = "createDelivery")
+    public void createDelivery(@RequestBody DeliveryDto deliveryDto) {
+        deliveryDbService.saveDelivery(deliveryMapper.mapToDelivery(deliveryDto));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "getDeliveryById")
+    public DeliveryDto getDelivery(@RequestParam Long id) {
+        return deliveryMapper.mapToDeliveryDto(deliveryDbService.getDelivery(id).get());
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateDelivery")
-    public String updateDelivery(String someDelivery) {
-        return "Updated Delivery";
+    public DeliveryDto updateDelivery(@RequestBody DeliveryDto deliveryDto) {
+        return deliveryMapper.mapToDeliveryDto(deliveryDbService.saveDelivery(deliveryMapper.mapToDelivery(deliveryDto)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteDelivery")
-    public void deleteDelivery(Long DeliveryID){
+    public void deleteDelivery(@RequestParam Long id) {
+        deliveryDbService.deleteDelivery(id);
     }
 
 }

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -35,46 +36,69 @@ public class Order {
     @NotNull
     @GeneratedValue
     @Column(name = "ID", unique = true)
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     @Column(name = "DATE_OF_ORDER")
-    public LocalDate getDate_of_order() { return date_of_order; }
+    public LocalDate getDate_of_order() {
+        return date_of_order;
+    }
 
     @Column(name = "DATE_OF_ORDER_ACCEPTANCE")
-    public LocalDate getDate_of_order_acceptance() { return date_of_order_acceptance; }
+    public LocalDate getDate_of_order_acceptance() {
+        return date_of_order_acceptance;
+    }
 
     @Column(name = "DATE_OF_ORDER_FULFILLMENT")
-    public LocalDate getFulfillment() { return fulfillment; }
+    public LocalDate getFulfillment() {
+        return fulfillment;
+    }
 
     @ManyToOne
     @JoinColumn(name = "CART_ID")
-    public Cart getCart() { return cart; }
+    public Cart getCart() {
+        return cart;
+    }
 
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DELIVERY_ID")
-    public Delivery getDelivery() { return delivery; }
+    public Delivery getDelivery() {
+        return delivery;
+    }
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    public User getUser() { return user; }
+    public User getUser() {
+        return user;
+    }
 
-    @ManyToMany
-    @JoinTable(name = "JOIN_ORDER_PRODUCTS",
-            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
-    public List<Product> getProducts() { return products; }
+    @OneToMany(
+            targetEntity = Product.class,
+            mappedBy = "order",
+            fetch = FetchType.LAZY
+    )
+    public List<Product> getProducts() {
+        return products;
+    }
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "INVOICE_ID")
-    public Invoice getInvoice() { return invoice; }
+    public Invoice getInvoice() {
+        return invoice;
+    }
 
 
     @Column(name = "TOTAL_SUM_OF_ORDER")
-    public BigDecimal getTotal_sum_of_order() { return total_sum_of_order; }
+    public BigDecimal getTotal_sum_of_order() {
+        return total_sum_of_order;
+    }
 
     @Column(name = "SUM")
-    public BigDecimal getSum() { return sum; }
+    public BigDecimal getSum() {
+        return sum;
+    }
 
     public Order(Cart cart, Delivery delivery, User user) {
 

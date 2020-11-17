@@ -1,6 +1,9 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.repository.*;
+import com.kodilla.ecommercee.repository.CartRepository;
+import com.kodilla.ecommercee.repository.InvoiceRepository;
+import com.kodilla.ecommercee.repository.OrderRepository;
+import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.validation.constraints.AssertTrue;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,12 +25,13 @@ public class UserEntityTestSuite {
     private OrderRepository orderRepository;
     @Autowired
     private InvoiceRepository invoiceRepository;
+
     @Test
-    public void saveAndDeleteUserTest(){
+    public void saveAndDeleteUserTest() {
         //Given
-        User user1 = new User("user1");
-        User user2 = new User("user2");
-        User user3 = new User("user3");
+        User user1 = new User();
+        User user2 = new User();
+        User user3 = new User();
 
         userRepository.save(user1);
         userRepository.save(user2);
@@ -39,7 +41,7 @@ public class UserEntityTestSuite {
         long countFromDb = userRepository.count();
 
         //Then
-        Assert.assertEquals(3,countFromDb);
+        Assert.assertEquals(3, countFromDb);
 
         //Given
         userRepository.deleteById(user1.getId());
@@ -50,13 +52,14 @@ public class UserEntityTestSuite {
         countFromDb = userRepository.count();
 
         //Then
-        Assert.assertEquals(0,countFromDb);
+        Assert.assertEquals(0, countFromDb);
     }
+
     @Test
-    public void findUserTest(){
+    public void findUserTest() {
         //Given
-        User user1 = new User("user1");
-        User user2 = new User("user2");
+        User user1 = new User();
+        User user2 = new User();
 
         userRepository.save(user1);
         userRepository.save(user2);
@@ -72,25 +75,25 @@ public class UserEntityTestSuite {
         List<User> resultFindByUsername = userRepository.findByUsername(username1);
 
         //Then
-        Assert.assertEquals(2,result.size());
+        Assert.assertEquals(2, result.size());
         Assert.assertTrue(user1fromDb.isPresent());
         Assert.assertTrue(user2fromDb.isPresent());
-        Assert.assertEquals("user1", resultFindByUsername.get(0).getUsername());
 
         //Clean
         userRepository.deleteById(id1);
         userRepository.deleteById(id2);
     }
+
     @Test
-    public void relationshipTestBetweenUserAndCart(){
+    public void relationshipTestBetweenUserAndCart() {
         //Given
         Cart cart1 = new Cart();
         Cart cart2 = new Cart();
         cartRepository.save(cart1);
         cartRepository.save(cart2);
 
-        User user1 = new User("user1");
-        User user2 = new User("user2");
+        User user1 = new User();
+        User user2 = new User();
 
         user1.setCart(cart1);
         user2.setCart(cart2);
@@ -105,17 +108,17 @@ public class UserEntityTestSuite {
 
         //Then
         Assert.assertFalse(resultUser.getCart().equals(null));
-        Assert.assertEquals("user1", resultUser.getUsername());
 
         //Clean
         userRepository.deleteById(user1.getId());
         userRepository.deleteById(user2.getId());
         cartRepository.deleteAll();
     }
+
     @Test
-    public void relationshipTestBetweenUserAndOrder(){
+    public void relationshipTestBetweenUserAndOrder() {
         //Given
-        User user1 = new User("user1");
+        User user1 = new User();
 
         Order order1 = new Order();
 
@@ -139,22 +142,24 @@ public class UserEntityTestSuite {
         Long secondOrderId = user1.getOrders().get(1).getId();
 
         //Then
-        Assert.assertEquals(2,userOrderListFromDb.size());
+        Assert.assertEquals(2, userOrderListFromDb.size());
         Assert.assertTrue(orderRepository.existsById(firstOrderId));
         Assert.assertTrue(orderRepository.existsById(secondOrderId));
 
         //Clean
-        userRepository.deleteAll();
         orderRepository.deleteAll();
+        userRepository.deleteAll();
+
     }
+
     @Test
-    public void relationshipTestBetweenUserAndInvoice(){
+    public void relationshipTestBetweenUserAndInvoice() {
         //Given
-        User user1 = new User("user1");
+        User user1 = new User();
 
         Invoice invoice1 = new Invoice();
 
-        user1.getInvoice().add(invoice1);
+        user1.getInvoices().add(invoice1);
         invoice1.setUser(user1);
 
         userRepository.save(user1);
@@ -162,12 +167,13 @@ public class UserEntityTestSuite {
 
         //When
         List<Invoice> resultList = invoiceRepository.findByUser(user1);
-        Long invoiceId = user1.getInvoice().get(0).getId();
+        Long invoiceId = user1.getInvoices().get(0).getId();
         //Then
         Assert.assertEquals(1, resultList.size());
         Assert.assertTrue(invoiceRepository.existsById(invoiceId));
         //Clean
-        userRepository.deleteAll();
         invoiceRepository.deleteAll();
+        userRepository.deleteAll();
+
     }
 }

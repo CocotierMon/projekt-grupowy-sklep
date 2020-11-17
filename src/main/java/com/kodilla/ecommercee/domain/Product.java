@@ -8,8 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Getter
 @Setter
@@ -23,9 +22,8 @@ public class Product {
     private String description;
     private BigDecimal price;
     private Group groupId;
-    private List<Order> orders = new ArrayList<>();
-
-    private List<Cart> carts = new ArrayList<>();
+    private Order order;
+    private Cart cart;
     private int amount;
     private BigDecimal sum;
 
@@ -35,35 +33,55 @@ public class Product {
     @NotNull
 
     @Column(name = "ID")
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     @Column(name = "PRODUCT_NAME")
     @NotNull
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     @Column(name = "DESCRIPTION")
     @NotNull
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     @Column(name = "PRICE")
     @NotNull
-    public BigDecimal getPrice() { return price; }
+    public BigDecimal getPrice() {
+        return price;
+    }
 
     @ManyToOne
     @JoinColumn(name = "GROUP_ID")
-    public Group getGroupId() { return groupId; }
+    public Group getGroupId() {
+        return groupId;
+    }
 
-    @ManyToMany(mappedBy = "products")
-    public List<Cart> getCarts() { return carts; }
+    @ManyToOne
+    @JoinColumn(name = "CART_ID")
+    public Cart getCart() {
+        return cart;
+    }
 
-    @ManyToMany(mappedBy = "products")
-    public List<Order> getOrders() { return orders; }
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID")
+    public Order getOrder() {
+        return order;
+    }
 
     @Column(name = "AMOUNT")
-    public int getAmount() { return amount; }
+    public int getAmount() {
+        return amount;
+    }
 
     @Column(name = "TOTAL_VALUE_OF_PRODUCT")
-    public BigDecimal getSum() { return sum; }
+    public BigDecimal getSum() {
+        return sum;
+    }
 
     public Product(String name, String description, BigDecimal price, int amount) {
         this.name = name;
