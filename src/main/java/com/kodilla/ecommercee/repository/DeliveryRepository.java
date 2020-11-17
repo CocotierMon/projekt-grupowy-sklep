@@ -5,11 +5,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 @Transactional
-public interface DeliveryRepository extends CrudRepository<Delivery,Long> {
+public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
     @Override
     Delivery save(Delivery delivery);
 
@@ -20,7 +21,7 @@ public interface DeliveryRepository extends CrudRepository<Delivery,Long> {
     boolean existsById(Long id);
 
     @Override
-    Iterable<Delivery> findAll();
+    List<Delivery> findAll();
 
     @Override
     long count();

@@ -1,67 +1,84 @@
 package com.kodilla.ecommercee;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.kodilla.ecommercee.domain.Cart;
+import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.dto.CartDto;
+import com.kodilla.ecommercee.dto.OrderDto;
+import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.exceptions.CartNotFoundException;
+import com.kodilla.ecommercee.mapper.CartMapper;
+import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.service.CartDbService;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/cart")
 public class CartController {
 
-    @RequestMapping(method = RequestMethod.POST , value = "createCart")
-    public void createCart(){
+    private CartDbService cartDbService;
+    private CartMapper cartMapper;
+    private ProductMapper productMapper;
+    private OrderMapper orderMapper;
+
+    @RequestMapping(method = RequestMethod.POST, value = "createCart")
+    public void createCart(@RequestBody CartDto cartDto) {
+        cartDbService.saveCart(cartMapper.mapToCart(cartDto));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getCart")
-    public String getCart() {
-        return "Cart";
+    @RequestMapping(method = RequestMethod.GET, value = "getCartById")
+    public CartDto getCart(@RequestParam Long id) throws CartNotFoundException {
+        return cartMapper.mapToCartDto(cartDbService.getCart(id).orElseThrow(CartNotFoundException::new));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateCart")
-    public String updateCart(String someCart) {
-        return "Update Cart";
+    public CartDto updateCart(@RequestBody CartDto cartDto) {
+        return cartMapper.mapToCartDto(cartDbService.saveCart(cartMapper.mapToCart(cartDto)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteCart")
-    public void deleteCart(Long CartID){
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "getUserID")
-    public String getUserID(){
-        return "some User";
+    public void deleteCart(@RequestParam Long id) {
+        cartDbService.deleteCart(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getValue")
-    public Long getValue(){
-        return Long.valueOf(900);
+    public BigDecimal getValue(@RequestParam Long id) {
+        return cartDbService.getCart(id).get().getSum();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addProduct")
-    public void addProduct(){
+    public void addProduct(@RequestParam int amount, @RequestBody ProductDto productDto, @RequestParam Long id) {
+        Cart cart = cartDbService.getCart(id).get();
+        cartDbService.getCart(id).get().addProduct(productMapper.mapToProduct(productDto), amount);
+        cartDbService.saveCart(cart);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getProducts")
-    public List<String> getProducts() {
-        return new ArrayList<>();
+    public List<Product> getProducts(@RequestParam Long id) {
+        return cartDbService.getCart(id).get().getProducts();
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
-    public void deleteProduct(){
+    public void deleteProduct(@RequestParam Long id, @RequestBody ProductDto productDto) {
+        cartDbService.getCart(id).get().getProducts().remove(productMapper.mapToProduct(productDto));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addOrder")
-    public void addOrder(){
+    public void addOrder(@RequestParam Long id, @RequestBody OrderDto orderDto) {
+        cartDbService.getCart(id).get().getOrders().add(orderMapper.mapToOrder(orderDto));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrders")
-    public List<String> getOrders() {
-        return new ArrayList<>();
+    public List<Order> getOrders(@RequestParam Long id) {
+        return cartDbService.getCart(id).get().getOrders();
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")
-    public void deleteOrder(){
+    public void deleteOrder(@RequestParam Long id, @RequestBody OrderDto orderDto) {
+        cartDbService.getCart(id).get().getOrders().remove(orderMapper.mapToOrder(orderDto));
     }
 }

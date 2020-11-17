@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,14 +24,20 @@ public class Invoice {
     @NotNull
     @GeneratedValue
     @Column(name = "ID")
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     @ManyToOne
     @JoinColumn(name = "USERS")
-    public User getUser() { return user; }
+    public User getUser() {
+        return user;
+    }
 
     @OneToOne
-    public Order getOrder() { return order; }
+    public Order getOrder() {
+        return order;
+    }
 
     public Invoice(User user, Order order) {
         this.user = user;

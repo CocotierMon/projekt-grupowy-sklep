@@ -12,13 +12,15 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    boolean existsByUsername(String username);
-
-   // Optional<User> findByUsernameAndPassword(String username, String password);
+    @Override
+    List<User> findAll();
 
     @Override
     Optional<User> findById(Long id);
 
     @Override
-    List<User> findAll();
+    User save(User user);
+
+    @Override
+    void deleteById(Long id);
 }

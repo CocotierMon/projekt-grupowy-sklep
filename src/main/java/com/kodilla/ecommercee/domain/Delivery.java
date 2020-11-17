@@ -24,14 +24,20 @@ public class Delivery {
     @NotNull
     @GeneratedValue
     @Column(name = "ID")
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     @Column(name = "VALUE")
-    public BigDecimal getValue() { return value; }
+    public BigDecimal getValue() {
+        return value;
+    }
 
-    @OneToOne(fetch =FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
-    public Order getOrder() { return order; }
+    public Order getOrder() {
+        return order;
+    }
 
     public Delivery(BigDecimal value) {
         this.value = value;

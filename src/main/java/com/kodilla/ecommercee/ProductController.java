@@ -1,38 +1,40 @@
 package com.kodilla.ecommercee;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.service.ProductDbService;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/product")
 public class ProductController {
+    private ProductDbService productDbService;
+    private ProductMapper productMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "getProducts")
-    public List<String> getProducts() {
-        return new ArrayList<>();
+    public List<ProductDto> getProducts() {
+        return productMapper.mapToProductDtoList(productDbService.getAllProducts());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getProduct")
-    public String getProduct() {
-        return "Some product";
+    public ProductDto getProductById(@RequestParam Long id) {
+        return productMapper.mapToProductDto(productDbService.getProduct(id).get());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct")
-    public void createProduct(String newProduct) {
-
+    public void createProduct(@RequestBody ProductDto productDto) {
+        productDbService.saveProduct(productMapper.mapToProduct(productDto));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateProduct")
-    public String updateProduct(String someProduct) {
-        return "Update Product";
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+        return productMapper.mapToProductDto(productDbService.saveProduct(productMapper.mapToProduct(productDto)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
-    public void deleteProduct(Long productId){
-
+    public void deleteProduct(@RequestParam Long id) {
+        productDbService.deleteProduct(id);
     }
 }

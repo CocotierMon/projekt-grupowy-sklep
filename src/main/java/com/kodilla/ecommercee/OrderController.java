@@ -1,38 +1,43 @@
 package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.dto.OrderDto;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.service.OrderDbService;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/order")
 public class OrderController {
 
+    private OrderDbService orderDbService;
+    private OrderMapper orderMapper;
+
     @RequestMapping(method = RequestMethod.GET, value = "getOrders")
     public List<OrderDto> getOrders() {
-        return new ArrayList();
+        return orderMapper.mapToOrderDtoList(orderDbService.getAllOrders());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
-    public OrderDto getOrder(Long orderId) {
-        return new OrderDto(1L, "New order");
+    public OrderDto getOrder(@RequestParam Long id) {
+        return orderMapper.mapToOrderDto(orderDbService.getOrder(id).get());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createOrder")
-    public void createOrder(OrderDto orderDto) {
+    public void createOrder(@RequestBody OrderDto orderDto) {
+        orderDbService.saveOrder(orderMapper.mapToOrder(orderDto));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateOrder")
-    public OrderDto updateOrder(Long orderId) {
-        return new OrderDto(1L, "New updated order");
+    public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
+        return orderMapper.mapToOrderDto(orderDbService.saveOrder(orderMapper.mapToOrder(orderDto)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")
-    public void deleteOrder(Long orderId) {
+    public void deleteOrder(@RequestParam Long id) {
+        orderDbService.deleteOrder(id);
     }
 
 }
+

@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,35 +33,53 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "ID")
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     @Column(name = "PRODUCT_NAME")
     @NotNull
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     @Column(name = "DESCRIPTION")
     @NotNull
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     @Column(name = "PRICE")
     @NotNull
-    public BigDecimal getPrice() { return price; }
+    public BigDecimal getPrice() {
+        return price;
+    }
 
     @ManyToOne
     @JoinColumn(name = "GROUP_ID")
-    public Group getGroupId() { return groupId; }
+    public Group getGroupId() {
+        return groupId;
+    }
 
     @ManyToMany(mappedBy = "products")
-    public List<Cart> getCarts() { return carts; }
+    public List<Cart> getCarts() {
+        return carts;
+    }
 
     @ManyToMany(mappedBy = "products")
-    public List<Order> getOrders() { return orders; }
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     @Column(name = "AMOUNT")
-    public int getAmount() { return amount; }
+    public int getAmount() {
+        return amount;
+    }
 
     @Column(name = "TOTAL_VALUE_OF_PRODUCT")
-    public BigDecimal getSum() { return sum; }
+    public BigDecimal getSum() {
+        return sum;
+    }
 
     public Product(String name, String description, BigDecimal price, int amount) {
         this.name = name;

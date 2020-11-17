@@ -1,12 +1,11 @@
 package com.kodilla.ecommercee.dto;
 
-import com.kodilla.ecommercee.domain.Group;
+import com.kodilla.ecommercee.domain.Cart;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ProductDto {
+public class UserDto {
     private Long id;
-    private String name;
-    private String description;
-    private BigDecimal price;
-    private Group groupId;
+    private String username;
+    private int status;
+    private Long userKey;
+    private Cart cart;
     private List<OrderDto> orders = new ArrayList<>();
-    private List<CartDto> carts = new ArrayList<>();
-    private int amount;
-    private BigDecimal sum;
+    private List<InvoiceDto> invoices = new ArrayList<>();
 }

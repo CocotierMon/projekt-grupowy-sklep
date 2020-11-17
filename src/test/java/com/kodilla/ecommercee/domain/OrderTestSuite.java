@@ -27,7 +27,7 @@ public class OrderTestSuite {
     ProductRepository productRepository;
 
     @Test
-    public void testOrderRepositoryCRUD(){
+    public void testOrderRepositoryCRUD() {
         //Given
         Order order = new Order();
 
@@ -47,10 +47,10 @@ public class OrderTestSuite {
     }
 
     @Test
-    public void testRelationWithUser(){
+    public void testRelationWithUser() {
         //Given
         Order order = new Order();
-        User userKarol = new User("Karol");
+        User userKarol = new User();
         userKarol.getOrders().add(order);
         order.setUser(userKarol);
         userRepository.save(userKarol);
