@@ -45,14 +45,13 @@ public class UserController {
     }
 
     @GetMapping(value = "generateUserKey")
-    public Long generateUserKey(@RequestParam Long id) {
+    public void generateUserKey(@RequestParam Long id) {
         userDbService.generateKey(id);
-        return userDbService.getUser(id).get().getUserKey();
-    }
-    @GetMapping(value = "setTimer")
-    public void setTimer(@RequestParam Long id) {
         userDbService.setTimer(id);
-        userDbService.getUser(id).get().getUserKey();
+    }
+    @GetMapping(value = "showUserKey")
+    public Long setTimer(@RequestParam Long id) {
+        return userDbService.getUser(id).get().getUserKey();
     }
 }
 
