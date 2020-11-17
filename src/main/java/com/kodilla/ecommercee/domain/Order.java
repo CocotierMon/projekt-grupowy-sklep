@@ -50,6 +50,7 @@ public class Order {
     @JoinColumn(name = "CART_ID")
     public Cart getCart() { return cart; }
 
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DELIVERY_ID")
     public Delivery getDelivery() { return delivery; }
@@ -68,6 +69,7 @@ public class Order {
     @JoinColumn(name = "INVOICE_ID")
     public Invoice getInvoice() { return invoice; }
 
+
     @Column(name = "TOTAL_SUM_OF_ORDER")
     public BigDecimal getTotal_sum_of_order() { return total_sum_of_order; }
 
@@ -75,6 +77,7 @@ public class Order {
     public BigDecimal getSum() { return sum; }
 
     public Order(Cart cart, Delivery delivery, User user) {
+
         this.date_of_order = LocalDate.now();
         this.cart = cart;
         this.delivery = delivery;

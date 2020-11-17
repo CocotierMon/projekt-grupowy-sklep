@@ -20,6 +20,7 @@ public class Delivery {
     private BigDecimal value;
     private Order order;
 
+
     @Id
     @NotNull
     @GeneratedValue
@@ -37,4 +38,6 @@ public class Delivery {
         this.value = value;
     }
 
+
 }
+
