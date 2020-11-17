@@ -8,11 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 @Transactional
+@Repository
 public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
-    @Override
-    Delivery save(Delivery delivery);
 
     @Override
     Optional<Delivery> findById(Long id);
@@ -24,7 +22,7 @@ public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
     List<Delivery> findAll();
 
     @Override
-    long count();
+    Delivery save(Delivery delivery);
 
     @Override
     void deleteById(Long id);
