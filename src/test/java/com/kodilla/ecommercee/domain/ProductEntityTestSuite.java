@@ -1,7 +1,10 @@
 
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.repository.*;
+import com.kodilla.ecommercee.repository.CartRepository;
+import com.kodilla.ecommercee.repository.GroupRepository;
+import com.kodilla.ecommercee.repository.OrderRepository;
+import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,10 +41,10 @@ public class ProductEntityTestSuite {
         Long id1 = product1.getId();
 
         //then
-        Assert.assertEquals(2,productRepository.count());
-        Assert.assertEquals(product.getName(),productRepository.findById(id).get().getName());
+        Assert.assertEquals(2, productRepository.count());
+        Assert.assertEquals(product.getName(), productRepository.findById(id).get().getName());
         productRepository.deleteById(id1);
-        Assert.assertEquals(1,productRepository.count());
+        Assert.assertEquals(1, productRepository.count());
 
         //clean
         productRepository.deleteAll();

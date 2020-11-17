@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.repository;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -12,13 +13,19 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    boolean existsByUsername(String username);
-
-   // Optional<User> findByUsernameAndPassword(String username, String password);
+    @Override
+    List<User> findAll();
 
     @Override
     Optional<User> findById(Long id);
 
     @Override
-    List<User> findAll();
+    User save(User user);
+
+    @Override
+    void deleteById(Long id);
+
+    User findByCart(Cart cart);
+
+    List<User> findByUsername(String username);
 }

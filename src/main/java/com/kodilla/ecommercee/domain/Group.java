@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -29,17 +30,23 @@ public class Group {
     @GeneratedValue
     @NotNull
     @Column(name = "GROUP_ID", unique = true)
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     @Column(name = "GROUP_NAME")
-    public String getGroupName() { return groupName; }
+    public String getGroupName() {
+        return groupName;
+    }
 
     @OneToMany(
             targetEntity = Product.class,
-            mappedBy= "groupId",
+            mappedBy = "groupId",
             fetch = FetchType.LAZY
     )
-    public List<Product> getProductsList() { return productsList; }
+    public List<Product> getProductsList() {
+        return productsList;
+    }
 
     public void setId(Long id) {
         this.id = id;

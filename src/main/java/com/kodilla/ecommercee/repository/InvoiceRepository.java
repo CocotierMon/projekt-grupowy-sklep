@@ -1,10 +1,16 @@
 package com.kodilla.ecommercee.repository;
 
 import com.kodilla.ecommercee.domain.Invoice;
+import com.kodilla.ecommercee.domain.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
+@Repository
+@Transactional
 public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 
     @Override
@@ -17,10 +23,7 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
     boolean existsById(Long id);
 
     @Override
-    Iterable<Invoice> findAll();
-
-    @Override
-    Iterable<Invoice> findAllById(Iterable<Long> ids);
+    List<Invoice> findAll();
 
     @Override
     long count();
@@ -31,4 +34,5 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
     @Override
     void deleteAll();
 
+    List<Invoice> findByUser(User user);
 }
