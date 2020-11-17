@@ -71,5 +71,5 @@ public class UserDbService {
 
         Timer timer = new Timer();
         timer.schedule(timerTask, 3600000);
-    };
+    }
 }
