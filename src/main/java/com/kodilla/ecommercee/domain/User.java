@@ -50,7 +50,7 @@ public class User {
     public int getUserKey() { return userKey; }
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CART", referencedColumnName = "ID")
+    @JoinColumn(name = "CART")
     public Cart getCart(){ return cart; }
 
     @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
