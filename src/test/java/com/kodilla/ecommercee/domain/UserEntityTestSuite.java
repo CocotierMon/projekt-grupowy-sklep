@@ -162,7 +162,7 @@ public class UserEntityTestSuite {
 
         //When
         List<Invoice> resultList = invoiceRepository.findByUser(user1);
-        Long invoiceId = user1.getInvoices().get(0).getId();
+        Long invoiceId = user1.getInvoice().get(0).getId();
         //Then
         Assert.assertEquals(1, resultList.size());
         Assert.assertTrue(invoiceRepository.existsById(invoiceId));
