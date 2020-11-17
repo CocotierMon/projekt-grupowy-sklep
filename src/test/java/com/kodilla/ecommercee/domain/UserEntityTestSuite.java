@@ -147,8 +147,9 @@ public class UserEntityTestSuite {
         Assert.assertTrue(orderRepository.existsById(secondOrderId));
 
         //Clean
-        userRepository.deleteAll();
         orderRepository.deleteAll();
+        userRepository.deleteAll();
+
     }
 
     @Test
@@ -171,7 +172,8 @@ public class UserEntityTestSuite {
         Assert.assertEquals(1, resultList.size());
         Assert.assertTrue(invoiceRepository.existsById(invoiceId));
         //Clean
-        userRepository.deleteAll();
         invoiceRepository.deleteAll();
+        userRepository.deleteAll();
+
     }
 }

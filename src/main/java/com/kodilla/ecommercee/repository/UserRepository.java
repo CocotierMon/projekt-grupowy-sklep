@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.repository;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -23,4 +24,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Override
     void deleteById(Long id);
+
+    User findByCart(Cart cart);
+
+    List<User> findByUsername(String username);
 }

@@ -60,7 +60,7 @@ public class User {
         return orders;
     }
 
-    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @Column(name = "INVOICES")
     public List<Invoice> getInvoices() {
         return invoices;
