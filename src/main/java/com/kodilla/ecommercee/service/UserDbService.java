@@ -9,8 +9,12 @@ import java.util.*;
 
 @Service
 public class UserDbService {
-    @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    public UserDbService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     Random generator = new Random(500000L);
 

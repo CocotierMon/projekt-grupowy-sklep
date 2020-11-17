@@ -10,8 +10,12 @@ import java.util.Optional;
 
 @Service
 public class InvoiceDbService {
-    @Autowired
+
     private InvoiceRepository invoiceRepository;
+    @Autowired
+    public InvoiceDbService(InvoiceRepository invoiceRepository) {
+        this.invoiceRepository = invoiceRepository;
+    }
 
     public List<Invoice> getAllInvoices() {
         return invoiceRepository.findAll();

@@ -11,8 +11,12 @@ import java.util.Optional;
 
 @Service
 public class CartDbService {
-    @Autowired
+
     private CartRepository cartRepository;
+    @Autowired
+    public CartDbService(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
+    }
 
     public List<Cart> getAllGroups() {
         return cartRepository.findAll();

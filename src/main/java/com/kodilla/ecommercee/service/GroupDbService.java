@@ -10,8 +10,12 @@ import java.util.Optional;
 
 @Service
 public class GroupDbService {
-    @Autowired
+
     private GroupRepository groupRepository;
+    @Autowired
+    public GroupDbService(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
+    }
 
     public List<Group> getAllGroups() {
         return groupRepository.findAll();

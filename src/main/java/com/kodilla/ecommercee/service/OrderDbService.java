@@ -11,8 +11,12 @@ import java.util.Optional;
 
 @Service
 public class OrderDbService {
-    @Autowired
+
     private OrderRepository orderRepository;
+    @Autowired
+    public OrderDbService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
