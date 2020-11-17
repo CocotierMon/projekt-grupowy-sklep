@@ -25,13 +25,16 @@ public class Product {
     private BigDecimal price;
     private Group groupId;
     private List<Order> orders = new ArrayList<>();
+
     private List<Cart> carts = new ArrayList<>();
     private int amount;
     private BigDecimal sum;
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
+
     @Column(name = "ID")
     public Long getId() {
         return id;

@@ -19,6 +19,7 @@ public class Invoice {
     private Long id;
     private User user;
     private Order order;
+   
 
     @Id
     @NotNull
@@ -39,8 +40,10 @@ public class Invoice {
         return order;
     }
 
+
     public Invoice(User user, Order order) {
         this.user = user;
         this.order = order;
     }
 }
+

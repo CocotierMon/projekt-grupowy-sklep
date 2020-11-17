@@ -55,8 +55,10 @@ public class User {
         return cart;
     }
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
-    public List<Order> getOrders() { return orders; }
+    @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.LAZY)
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     @OneToMany(targetEntity = Invoice.class, mappedBy = "user", fetch = FetchType.LAZY)
     @Column(name = "INVOICES")

@@ -40,7 +40,9 @@ public class Cart {
     @JoinTable(name = "JOIN_CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "CARD_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")})
-    public List<Product> getProducts() { return products; }
+    public List<Product> getProducts() {
+        return products;
+    }
 
     @OneToMany(targetEntity = Order.class, mappedBy = "cart", fetch = FetchType.LAZY)
     public List<Order> getOrders() {
