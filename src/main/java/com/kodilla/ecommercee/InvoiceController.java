@@ -3,6 +3,7 @@ package com.kodilla.ecommercee;
 import com.kodilla.ecommercee.dto.InvoiceDto;
 import com.kodilla.ecommercee.mapper.InvoiceMapper;
 import com.kodilla.ecommercee.service.InvoiceDbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,6 +12,12 @@ public class InvoiceController {
 
     private InvoiceDbService invoiceDbService;
     private InvoiceMapper invoiceMapper;
+
+    @Autowired
+    public InvoiceController(InvoiceDbService invoiceDbService, InvoiceMapper invoiceMapper) {
+        this.invoiceDbService = invoiceDbService;
+        this.invoiceMapper = invoiceMapper;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "createInvoice")
     public void createInvoice(@RequestBody InvoiceDto invoiceDto) {

@@ -4,6 +4,7 @@ import com.kodilla.ecommercee.dto.GroupDto;
 import com.kodilla.ecommercee.exceptions.GroupNotFoundException;
 import com.kodilla.ecommercee.mapper.GroupMapper;
 import com.kodilla.ecommercee.service.GroupDbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,12 @@ public class GroupController {
 
     private GroupDbService groupDbService;
     private GroupMapper groupMapper;
+
+    @Autowired
+    public GroupController(GroupDbService groupDbService, GroupMapper groupMapper) {
+        this.groupDbService = groupDbService;
+        this.groupMapper = groupMapper;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroupsList")
     public List<GroupDto> getGroupsList() {

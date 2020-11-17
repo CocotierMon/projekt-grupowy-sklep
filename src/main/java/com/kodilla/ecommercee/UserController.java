@@ -3,6 +3,7 @@ package com.kodilla.ecommercee;
 import com.kodilla.ecommercee.dto.UserDto;
 import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.UserDbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,11 @@ import java.util.List;
 public class UserController {
     private UserDbService userDbService;
     private UserMapper userMapper;
+    @Autowired
+    public UserController(UserDbService userDbService, UserMapper userMapper) {
+        this.userDbService = userDbService;
+        this.userMapper = userMapper;
+    }
 
     @GetMapping(value = "getUsers")
     public List<UserDto> getUsers() {

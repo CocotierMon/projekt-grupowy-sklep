@@ -11,6 +11,7 @@ import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.CartDbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -24,6 +25,14 @@ public class CartController {
     private CartMapper cartMapper;
     private ProductMapper productMapper;
     private OrderMapper orderMapper;
+
+    @Autowired
+    public CartController(CartDbService cartDbService, CartMapper cartMapper, ProductMapper productMapper, OrderMapper orderMapper) {
+        this.cartDbService = cartDbService;
+        this.cartMapper = cartMapper;
+        this.productMapper = productMapper;
+        this.orderMapper = orderMapper;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "createCart")
     public void createCart(@RequestBody CartDto cartDto) {

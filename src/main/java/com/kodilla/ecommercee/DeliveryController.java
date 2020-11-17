@@ -3,6 +3,7 @@ package com.kodilla.ecommercee;
 import com.kodilla.ecommercee.dto.DeliveryDto;
 import com.kodilla.ecommercee.mapper.DeliveryMapper;
 import com.kodilla.ecommercee.service.DeliveryDbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,6 +12,12 @@ public class DeliveryController {
 
     private DeliveryDbService deliveryDbService;
     private DeliveryMapper deliveryMapper;
+
+    @Autowired
+    public DeliveryController(DeliveryDbService deliveryDbService, DeliveryMapper deliveryMapper) {
+        this.deliveryDbService = deliveryDbService;
+        this.deliveryMapper = deliveryMapper;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "createDelivery")
     public void createDelivery(@RequestBody DeliveryDto deliveryDto) {
