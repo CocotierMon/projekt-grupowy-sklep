@@ -53,10 +53,10 @@ public class User {
     @JoinColumn(name = "CART", referencedColumnName = "ID")
     public Cart getCart(){ return cart; }
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     public List<Order> getOrders() { return orders; }
 
-    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Invoice.class, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @Column(name = "INVOICES")
     public List<Invoice> getInvoice() { return invoice; }
 
