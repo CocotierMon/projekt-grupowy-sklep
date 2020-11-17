@@ -23,15 +23,13 @@ public class CartController {
 
     private CartDbService cartDbService;
     private CartMapper cartMapper;
-    private ProductMapper productMapper;
-    private OrderMapper orderMapper;
+     ProductMapper productMapper;
+     OrderMapper orderMapper;
 
     @Autowired
-    public CartController(CartDbService cartDbService, CartMapper cartMapper, ProductMapper productMapper, OrderMapper orderMapper) {
+    public CartController(CartDbService cartDbService, CartMapper cartMapper) {
         this.cartDbService = cartDbService;
         this.cartMapper = cartMapper;
-        this.productMapper = productMapper;
-        this.orderMapper = orderMapper;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createCart")
