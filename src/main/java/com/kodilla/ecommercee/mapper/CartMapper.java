@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class CartMapper {
-    ProductMapper productMapper;
-    OrderMapper orderMapper;
+    private ProductMapper productMapper;
+    private OrderMapper orderMapper;
 
     @Autowired
     public CartMapper(ProductMapper productMapper, OrderMapper orderMapper) {
