@@ -19,7 +19,7 @@ public class Invoice {
     private Long id;
     private User user;
     private Order order;
-   
+
 
     @Id
     @NotNull

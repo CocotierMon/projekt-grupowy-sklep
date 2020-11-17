@@ -12,6 +12,7 @@ import java.util.Optional;
 public class InvoiceDbService {
 
     private InvoiceRepository invoiceRepository;
+
     @Autowired
     public InvoiceDbService(InvoiceRepository invoiceRepository) {
         this.invoiceRepository = invoiceRepository;

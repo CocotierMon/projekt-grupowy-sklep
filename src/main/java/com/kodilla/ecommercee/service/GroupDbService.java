@@ -12,6 +12,7 @@ import java.util.Optional;
 public class GroupDbService {
 
     private GroupRepository groupRepository;
+
     @Autowired
     public GroupDbService(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;

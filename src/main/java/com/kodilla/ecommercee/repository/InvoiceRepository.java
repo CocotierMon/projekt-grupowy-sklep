@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository
 @Transactional
 public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
@@ -32,5 +33,6 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 
     @Override
     void deleteAll();
+
     List<Invoice> findByUser(User user);
 }

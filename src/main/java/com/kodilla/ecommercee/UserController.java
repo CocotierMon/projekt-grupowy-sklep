@@ -14,6 +14,7 @@ import java.util.List;
 public class UserController {
     private UserDbService userDbService;
     private UserMapper userMapper;
+
     @Autowired
     public UserController(UserDbService userDbService, UserMapper userMapper) {
         this.userDbService = userDbService;
@@ -55,6 +56,7 @@ public class UserController {
         userDbService.generateKey(id);
         userDbService.setTimer(id);
     }
+
     @GetMapping(value = "showUserKey")
     public Long setTimer(@RequestParam Long id) {
         return userDbService.getUser(id).get().getUserKey();
